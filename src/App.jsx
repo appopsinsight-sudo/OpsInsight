@@ -329,7 +329,7 @@ const FEEDBACK_EMAIL="appOpsInsight@gmail.com";
 //   2. Create a form, point it to appOpsInsight@gmail.com
 //   3. Copy the form ID (e.g. "xpzvqkdl")
 //   4. Paste it below
-const FORMSPREE_ID=""; // ← paste your Formspree ID here when ready
+const FORMSPREE_ID="xyklaydy"; // ← paste your Formspree ID here when ready
 
 function FeedbackPage({onBack}){
   const[name,setName]=useState("");
