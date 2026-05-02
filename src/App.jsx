@@ -43,7 +43,7 @@ const EX={
   // ── GP ──
   "gp-revenue":{title:"Revenue (Sales)",icon:"💷",paragraphs:["This is your Net Revenue (Sales excluding VAT) for the same period you are calculating GP%, P&L, COGS and Waste.","All numbers must match the exact same period. If you are calculating GP% for a week, enter that week's Net Sales here."],tip:"Track daily sales."},
   "gp-cogs":{title:"Cost of Goods Sold",icon:"📦",paragraphs:["Cost of Goods Sold is the value of food and drinks you actually used in the same period as your sales. It is NOT what you purchased.","It is calculated as: Opening Stock + Purchases − Closing Stock.","This is important — Purchases are only one part of the calculation. If you just enter your purchases here without doing a proper stock take, your GP% will not be accurate."],tip:"Do not confuse Purchases with Cost of Goods Sold. For accurate GP, always use full stock-based COGS."},
-  "gp-result":{title:"Gross Profit (GP%)",icon:"📈",paragraphs:["Money left after you paid all your food & drinks invoices (purchases).","GP = Revenue − COGS","GP% = (GP ÷ Revenue) × 100","GP% is only related to Food & Beverage costs. No other cost lines affect this number. This is how it's calculated — labour, rent, overheads are separate.","Target: Commercial Restaurants 65–75%."],tip:"2% improvement on £50k = £1,000 extra/month — as an example."},
+  "gp-result":{title:"Gross Profit (GP%)",icon:"📈",paragraphs:["Money left after deducting the cost of food and drinks actually used to generate those sales.","GP = Revenue − COGS","GP% = (GP ÷ Revenue) × 100","GP% is only related to Food & Beverage costs. No other cost lines affect this number. This is how it's calculated — labour, rent, overheads are separate.","Target: Commercial Restaurants 65–75%."],tip:"2% improvement on £50k = £1,000 extra/month — as an example."},
   // ── WASTE ──
   "waste-waste":{title:"Waste",icon:"🗑️",paragraphs:["Food or drink that was paid for but cannot be sold.","This includes expired items, overproduction, mistakes, or items that were damaged or thrown away."],tip:"Under 5% of Net Revenue — each company may set their own target in KPI Targets."},
   "waste-breakage":{title:"Breakage",icon:"💔",paragraphs:["Physical items that are damaged or broken, such as glasses, plates, or equipment."],tip:"If breakage increases during busy periods, it may indicate understaffing or pressure on the team."},
@@ -100,13 +100,21 @@ const EX={
   "abbr-capex":{title:"CAPEX — Capital Expenditure",icon:"🏗️",paragraphs:["What it means: Money spent on assets that last more than one year — kitchen equipment, fit-out, technology.","How it's calculated: Total CAPEX = all capital purchases in the period. CAPEX % = Total CAPEX ÷ Revenue × 100","Why it matters: CAPEX doesn't hit your P&L as a lump sum — it appears as depreciation spread over years. But the cash goes out upfront, so you need to plan for it.","Simple: Big things you buy for the business that last a long time. An oven, a refurb, a new POS system.","How to improve: Create a 3-year replacement plan. Budget 3–5% of annual revenue. Buy quality — cheap equipment costs more long-term."],tip:"Track every asset with purchase date, cost, and expected life."},
   "abbr-lc":{title:"LC — Labour Cost",icon:"👥",paragraphs:["What it means: Total cost of employing your team — wages, NI, pension, agency staff, overtime, staff meals, training.","How it's calculated: LC% = Total Labour Cost ÷ Revenue × 100","Why it matters: Labour is usually the second-largest cost after food/drink. Target: 25–35% of revenue depending on service style.","Simple: Everything you spend on your people. If labour is too high, profit disappears. Too low, service suffers and revenue drops.","How to improve: Match rotas to demand, track revenue per labour hour, reduce agency reliance, cross-train staff."],tip:"Revenue per labour hour (RPLH) is a better measure than just LC%. It shows productivity, not just cost."},
   "abbr-rplh":{title:"RPLH — Revenue per Labour Hour",icon:"⏱️",paragraphs:["What it means: How much revenue the business generates for every hour of labour worked.","How it's calculated: RPLH = Total Revenue ÷ Total Labour Hours","Why it matters: RPLH measures labour efficiency. A restaurant doing £25 RPLH is more efficient than one doing £18 RPLH. It helps you decide if you're overstaffed or understaffed.","Simple: If your team worked 500 hours this week and you took £15,000 in sales, your RPLH is £30. That means every hour of work generated £30 of revenue.","How to improve: Review rotas against busy/quiet patterns, reduce hours on slow days, schedule more staff when revenue potential is highest."],tip:"Track RPLH daily. Aim for consistent improvement rather than cutting hours blindly."},
-  "abbr-asph":{title:"ASPH — Average Sales per Head",icon:"💷",paragraphs:["What it means: The average amount each customer spends per visit.","How it's calculated: ASPH = Total Revenue ÷ Total Covers (customers served)","Why it matters: ASPH tells you whether your team is selling effectively. Low ASPH may mean missed upselling opportunities, poor menu design, or pricing issues.","Simple: If 200 customers spent £6,000 total, your ASPH is £30. If you can move that to £32, you've added £400 in revenue with the same number of customers.","How to improve: Train staff on upselling, review menu layout and pricing, offer add-ons (sides, drinks, desserts), improve menu descriptions."],tip:"Even £1 extra per head across hundreds of covers per week adds up fast."},
-  "abbr-sph":{title:"SPH — Sales per Hour",icon:"📊",paragraphs:["What it means: Total sales generated in each trading hour. Helps identify peak and quiet periods.","How it's calculated: SPH = Revenue in hour ÷ 1 (tracked per hour from POS)","Why it matters: SPH shows you when your business makes money and when it doesn't. Use it to adjust staffing, opening hours, and promotions.","Simple: If you took £800 between 12:00–13:00 and £200 between 15:00–16:00, you know where to focus your staff and energy.","How to improve: Push promotions during quiet hours, adjust staffing to match peak hours, consider reducing hours if certain periods consistently lose money."],tip:"Your POS should give you hourly sales data. Review it weekly."},
+  "abbr-asph":{title:"ASPH — Average Sales per Hour",icon:"⏱️",paragraphs:["What it means: Average sales generated per trading hour over a period.","How it's calculated: ASPH = Total Revenue ÷ Total Trading Hours","Why it matters: It helps you understand how strongly the business trades across the day or week.","Simple: If you took £2,000 over 10 trading hours, your ASPH is £200.","How to improve: Focus marketing on quiet hours, adjust opening times if certain hours consistently underperform, match staffing to high-ASPH periods."],tip:"Use ASPH to understand trading pace."},
+  "abbr-sph":{title:"SPH — Sales per Hour",icon:"📊",paragraphs:["What it means: Sales generated in a specific hour.","How it's calculated: SPH = Revenue in that hour","Why it matters: It shows your busiest and weakest trading hours. Use it to adjust staffing, opening hours, and promotions.","Simple: If you took £350 between 12pm and 1pm, that hour's SPH is £350.","How to improve: Push promotions during quiet hours, adjust staffing to match peak hours, consider reducing hours if certain periods consistently lose money."],tip:"Use SPH to match staffing to demand."},
+  "abbr-spend-per-head":{title:"Spend per Head",icon:"💷",paragraphs:["What it means: The average amount each customer spends per visit.","How it's calculated: Spend per Head = Total Revenue ÷ Total Covers (customers served)","Why it matters: It helps you understand customer value, upselling effectiveness, and whether your pricing is right.","Simple: If 200 customers spent £6,000, spend per head is £30. If you can move that to £32, you've added £400 in revenue with the same number of customers.","How to improve: Train staff on upselling, review menu layout and pricing, offer add-ons (sides, drinks, desserts), improve menu descriptions."],tip:"Small increases in spend per head can create big profit improvement."},
   "abbr-aov":{title:"AOV / ATV — Average Order Value / Average Transaction Value",icon:"🧾",paragraphs:["What it means: The average value of each transaction or order.","How it's calculated: AOV = Total Revenue ÷ Total Number of Transactions","Why it matters: Similar to ASPH but measured per transaction rather than per person. Useful for takeaway, delivery, and counter-service operations where you don't count covers.","Simple: If you had 150 transactions and took £4,500, your AOV is £30. Increasing it by even £2 means £300 more revenue from the same number of orders.","How to improve: Bundle deals, suggest add-ons at point of sale, review pricing tiers, offer meal deals."],tip:"AOV is especially important for delivery and takeaway where per-head counting doesn't apply."},
   "abbr-upt":{title:"UPT — Units per Transaction",icon:"📦",paragraphs:["What it means: The average number of items in each order or transaction.","How it's calculated: UPT = Total Items Sold ÷ Total Transactions","Why it matters: UPT tells you whether customers are buying just one item or multiple. Low UPT means missed cross-selling opportunities.","Simple: If a customer buys a coffee and nothing else, UPT is 1. If they add a pastry, it's 2. More items per transaction = more revenue without needing more customers.","How to improve: Display impulse items near the till, train staff to suggest additions, create combo deals."],tip:"Track UPT alongside AOV — together they tell you the full picture of selling performance."},
   "abbr-oos":{title:"OOS — Out of Stock",icon:"🚫",paragraphs:["What it means: An item that should be available but isn't — you've run out.","Why it matters: OOS items mean lost sales, disappointed customers, and potential damage to your reputation. Frequent OOS on popular items is a serious ordering or forecasting problem.","Simple: When a customer asks for something and you don't have it. Every time that happens, you lose revenue and trust.","How to improve: Improve ordering accuracy, track which items go OOS most often, use par levels (minimum stock levels), and communicate with suppliers on lead times."],tip:"Track every OOS incident. Patterns will show you whether the problem is ordering, storage, or supplier reliability."},
   "abbr-86":{title:"86 — Item Not Available",icon:"❌",paragraphs:["What it means: Kitchen/bar term meaning an item is completely unavailable — you've run out and cannot serve it.","Why it matters: 86'd items lose you revenue immediately and frustrate customers. Frequent 86s suggest poor prep planning, ordering issues, or recipe yield problems.","Simple: When the kitchen tells the floor 'we're out of the salmon' — that salmon is 86'd. Every 86 is a missed sale.","How to improve: Better prep forecasting, accurate par levels, and pre-shift communication between kitchen and floor about potential 86 risks."],tip:"Track what gets 86'd and when. If the same item is 86'd every Friday night, your ordering or prep needs adjusting."},
   "abbr-85":{title:"85 — Running Low",icon:"⚠️",paragraphs:["What it means: Kitchen/bar term meaning an item is running low — not out yet, but getting close. It's the warning before an 86.","Why it matters: An 85 gives the team time to react — push the item to sell through remaining stock, alert the floor to stop promoting it, or adjust portions.","Simple: When the kitchen says 'we're down to 3 portions of the lamb' — that's an 85. It means act now before it becomes an 86.","How to improve: Use 85 calls consistently, empower the team to communicate early, track 85-to-86 frequency to improve ordering."],tip:"A good 85 system prevents 86s. Train the team to call 85 early rather than waiting until it's too late."},
+  // ── Leadership Tips ──
+  "lead-pressure":{title:"Managing Pressure",icon:"🔥",paragraphs:["What it means: Learning how to stay calm when service is busy, something goes wrong, or the team is under pressure.","Why it matters: Managers set the emotional tone. If you panic, the team feels it. If you stay calm, the team has a better chance of staying focused.","Practical advice:","• Pause before reacting","• Lower your voice, not raise it","• Prioritise the next action, not the whole problem","• Fix the issue first, review it later","• Do not take pressure out on the team","Pressure does not create leadership; it reveals it. The goal is not to feel nothing — the goal is to act properly even when you feel pressure."],tip:"Stay calm enough to make the next right decision."},
+  "lead-communication":{title:"Communication",icon:"💬",paragraphs:["What it means: Being able to speak clearly, directly, and respectfully — even when frustrated, nervous, or under pressure.","Why it matters: A good message delivered badly creates resistance. A difficult message delivered well can build trust.","Practical advice:","• Be clear about what you need","• Avoid attacking the person","• Focus on the behaviour or issue","• Check that they understood you","• Speak early before frustration builds","Before you speak, ask: 'What is my intention here, and will my words actually come across that way?'"],tip:"Good communication is not just what you say — it is how it lands."},
+  "lead-feedback":{title:"Giving Feedback",icon:"📋",paragraphs:["What it means: Correcting or guiding someone so performance improves without making it feel personal.","Why it matters: Managers who avoid feedback allow standards to drop. Managers who give feedback badly damage trust.","Practical advice:","• Give feedback close to the moment","• Be specific","• Explain the impact","• Agree the next action","• Praise improvement when you see it","Feedback should be about improving the work, not winning the argument."],tip:"Correct the behaviour, not the person."},
+  "lead-ownership":{title:"Taking Ownership",icon:"🏆",paragraphs:["What it means: Acting like a manager before someone officially gives you the title.","Why it matters: Promotion usually follows behaviour. If you already think and act like a manager, people are more likely to trust you with responsibility.","Practical advice:","• Solve problems without waiting to be asked","• Learn the numbers","• Support weaker team members","• Think about the whole shift, not only your task","• Bring solutions, not just complaints","You do not become a manager only when your title changes. You become one when your thinking changes."],tip:"Act at the level you want to grow into."},
+  "lead-self-investment":{title:"Self-Investment",icon:"📚",paragraphs:["What it means: Taking responsibility for your own growth, skills, and confidence.","Why it matters: No manager, company, or mentor can develop you more than you are willing to develop yourself.","Practical advice:","• Learn basic finance","• Ask questions","• Read your P&L","• Watch how strong managers communicate","• Practice uncomfortable conversations","• Ask for feedback","No one will invest in you more than you. Your hard work may not always be noticed immediately, but your growth is still your responsibility."],tip:"Do not wait to be developed — start developing yourself."},
+  "lead-emotional-control":{title:"Emotional Control",icon:"🧘",paragraphs:["What it means: Managing your reaction before it becomes your behaviour.","Why it matters: Managers are still human, but the role requires control. A few careless words can damage trust quickly.","Practical advice:","• Do not respond instantly when angry","• Take a breath before speaking","• Ask yourself what outcome you want","• Avoid sarcasm or public embarrassment","• Come back to the conversation if needed","The question is not 'am I right to be frustrated?' The better question is: 'Will my reaction help or damage the outcome?'"],tip:"Feel it, but do not let it lead you."},
 };
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -261,7 +269,7 @@ function Home({nav}){return(<Page><div style={{textAlign:"center",padding:"36px 
     <NB icon="🏗️" label="CAPEX" desc="Capital investments" onClick={()=>nav("capex")} delay={0.28}/>
     <NB icon="🧠" label="Insights" desc="How you're performing against your targets" onClick={()=>nav("insights")} delay={0.32}/>
     <NB icon="🔧" label="How to Fix" desc="My number is bad — what do I do?" onClick={()=>nav("howtofix")} delay={0.36}/>
-  </div><div style={{marginTop:28}}><div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}><div style={{height:1,flex:1,background:C.border}}/><span style={{fontSize:11,fontWeight:700,color:C.dim,textTransform:"uppercase",letterSpacing:1}}>Tools & Learning</span><div style={{height:1,flex:1,background:C.border}}/></div><NB icon="📖" label="Abbreviations (Ops Language)" desc="Common hospitality terms explained" onClick={()=>nav("abbreviations")} delay={0.40}/><NB icon="💬" label="Send Feedback" desc="Help us improve OpsInsight" onClick={()=>nav("feedback")} delay={0.44}/></div><div style={{textAlign:"center",marginTop:24,fontSize:11,color:C.dim}}>Built for hospitality teams</div><div style={{textAlign:"center",marginTop:6,fontSize:10,color:C.dim,opacity:0.5}}>OpsInsight v1.0 • We do not sell your data</div></Page>)}
+  </div><div style={{marginTop:28}}><div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}><div style={{height:1,flex:1,background:C.border}}/><span style={{fontSize:11,fontWeight:700,color:C.dim,textTransform:"uppercase",letterSpacing:1}}>Tools & Learning</span><div style={{height:1,flex:1,background:C.border}}/></div><NB icon="📖" label="Abbreviations (Ops Language)" desc="Common hospitality terms explained" onClick={()=>nav("abbreviations")} delay={0.40}/><NB icon="🧭" label="Leadership Tips" desc="Practical advice for managers" onClick={()=>nav("leadership")} delay={0.44}/><NB icon="💬" label="Send Feedback" desc="Help us improve OpsInsight" onClick={()=>nav("feedback")} delay={0.48}/></div><div style={{textAlign:"center",marginTop:24,fontSize:11,color:C.dim}}>Built for hospitality teams</div><div style={{textAlign:"center",marginTop:6,fontSize:10,color:C.dim,opacity:0.5}}>OpsInsight v1.0 • We do not sell your data</div></Page>)}
 
 /* ═══════════════════════════════════════════════════════════════════
    ABBREVIATIONS PAGE
@@ -278,8 +286,9 @@ const ABBR_LIST=[
   ]},
   {cat:"Performance Metrics",items:[
     {id:"abbr-rplh",abbr:"RPLH",full:"Revenue per Labour Hour"},
-    {id:"abbr-asph",abbr:"ASPH",full:"Average Sales per Head"},
+    {id:"abbr-asph",abbr:"ASPH",full:"Average Sales per Hour"},
     {id:"abbr-sph",abbr:"SPH",full:"Sales per Hour"},
+    {id:"abbr-spend-per-head",abbr:"Spend/Head",full:"Spend per Head (Average Customer Spend)"},
     {id:"abbr-aov",abbr:"AOV / ATV",full:"Average Order / Transaction Value"},
   ]},
   {cat:"Operations",items:[
@@ -318,6 +327,43 @@ function AbbreviationsPage({onBack,nav}){
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   LEADERSHIP TIPS PAGE
+   ═══════════════════════════════════════════════════════════════════ */
+const LEAD_LIST=[
+  {id:"lead-pressure",icon:"🔥",label:"Managing Pressure",desc:"Stay calm when it matters most"},
+  {id:"lead-communication",icon:"💬",label:"Communication",desc:"Say what you mean, clearly and respectfully"},
+  {id:"lead-feedback",icon:"📋",label:"Giving Feedback",desc:"Correct without damaging trust"},
+  {id:"lead-ownership",icon:"🏆",label:"Taking Ownership",desc:"Act at the level you want to grow into"},
+  {id:"lead-self-investment",icon:"📚",label:"Self-Investment",desc:"Take charge of your own development"},
+  {id:"lead-emotional-control",icon:"🧘",label:"Emotional Control",desc:"Feel it, but don't let it lead you"},
+];
+
+function LeadershipPage({onBack,nav}){
+  return(<Page onBack={onBack} backLabel="Home">
+    <div style={{fontSize:48,marginBottom:6}}>🧭</div>
+    <Ttl text="Leadership Tips" sub="Practical advice for hospitality managers. Tap any topic to learn more."/>
+    {LEAD_LIST.map((item,i)=>(
+      <button key={item.id} onClick={()=>nav("explain:"+item.id)} style={{
+        width:"100%",display:"flex",alignItems:"center",gap:12,
+        padding:"16px 16px",background:C.surface,border:`1px solid ${C.border}`,
+        borderRadius:14,marginBottom:6,cursor:"pointer",textAlign:"left",
+        boxSizing:"border-box",transition:"all 0.2s",
+        animation:`fadeUp 0.3s ease ${i*0.05}s both`,
+      }}
+      onMouseEnter={e=>{e.currentTarget.style.background=C.surfaceUp;e.currentTarget.style.borderColor=C.borderL}}
+      onMouseLeave={e=>{e.currentTarget.style.background=C.surface;e.currentTarget.style.borderColor=C.border}}>
+        <span style={{fontSize:24}}>{item.icon}</span>
+        <div style={{flex:1}}>
+          <div style={{fontSize:15,fontWeight:600,color:C.text}}>{item.label}</div>
+          <div style={{fontSize:12,color:C.dim,marginTop:2}}>{item.desc}</div>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.dim} strokeWidth="2" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    ))}
+  </Page>);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    FEEDBACK PAGE
    Email target: appOpsInsight@gmail.com (hidden from user)
    Ready to wire to EmailJS / Formspree / serverless endpoint
@@ -329,7 +375,7 @@ const FEEDBACK_EMAIL="appOpsInsight@gmail.com";
 //   2. Create a form, point it to appOpsInsight@gmail.com
 //   3. Copy the form ID (e.g. "xpzvqkdl")
 //   4. Paste it below
-const FORMSPREE_ID="xyklaydy"; // ← paste your Formspree ID here when ready
+const FORMSPREE_ID=""; // ← paste your Formspree ID here when ready
 
 function FeedbackPage({onBack}){
   const[name,setName]=useState("");
@@ -655,6 +701,7 @@ export default function OpsInsight(){
     {pg==="home"&&<Home nav={nav}/>}
     {pg==="kpi"&&<KPIPage onBack={home} nav={nav} kpis={kpis} setKpis={setKpis}/>}
     {pg==="abbreviations"&&<AbbreviationsPage onBack={home} nav={nav}/>}
+    {pg==="leadership"&&<LeadershipPage onBack={home} nav={nav}/>}
     {pg==="feedback"&&<FeedbackPage onBack={home}/>}
     {pg==="howtofix"&&<HowToFixPage onBack={home} nav={nav}/>}
     {pg.startsWith("fix:")&&<FixDetailPage id={pg.replace("fix:","")} onBack={()=>back()}/>}
