@@ -195,7 +195,7 @@ const FIX_LIST=[
    ═══════════════════════════════════════════════════════════════════ */
 function Page({children,onBack,backLabel}){return(<div style={{minHeight:"100vh",background:C.bg,color:C.text,fontFamily:"'DM Sans',sans-serif",maxWidth:480,margin:"0 auto",padding:"12px 20px 48px"}}>{onBack&&<button onClick={onBack} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",color:C.accent,fontSize:14,fontFamily:"'DM Sans',sans-serif",cursor:"pointer",padding:"10px 0",fontWeight:500}}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>{backLabel||"Back"}</button>}{children}</div>)}
 function Ttl({text,sub}){return(<div style={{marginBottom:24,marginTop:6}}><h1 style={{fontSize:24,fontWeight:700,margin:0,letterSpacing:-0.4,lineHeight:1.25}}>{text}</h1>{sub&&<p style={{fontSize:13,color:C.sub,margin:"6px 0 0",lineHeight:1.45}}>{sub}</p>}</div>)}
-function TapInput({label,value,onChange,onTap,hint}){return(<div style={{marginBottom:14}}><button onClick={onTap} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",padding:"0 0 6px",cursor:"pointer"}}><span style={{fontSize:12,color:C.accent,fontWeight:600,letterSpacing:0.7,textTransform:"uppercase",fontFamily:"'DM Sans',sans-serif",textDecoration:"underline",textDecorationColor:C.accent+"44",textUnderlineOffset:3}}>{label}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.accent} strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>{hint&&<div style={{fontSize:10,color:C.info,marginBottom:4,fontStyle:"italic"}}>{hint}</div>}<div style={{position:"relative"}}><span style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",color:C.dim,fontSize:15,fontWeight:600}}>£</span><input type="number" value={value} onChange={e=>onChange(e.target.value)} placeholder="0" style={{width:"100%",padding:"13px 14px 13px 30px",background:C.bg,border:`1px solid ${hint?C.info+"44":C.border}`,borderRadius:12,color:C.text,fontSize:16,fontFamily:"'JetBrains Mono',monospace",outline:"none",boxSizing:"border-box"}} onFocus={e=>{e.target.style.borderColor=C.accent}} onBlur={e=>{e.target.style.borderColor=hint?C.info+"44":C.border}}/></div></div>)}
+function TapInput({label,value,onChange,onTap,hint}){return(<div style={{marginBottom:14}}><button onClick={onTap} style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",padding:"0 0 6px",cursor:"pointer"}}><span style={{fontSize:12,color:C.accent,fontWeight:600,letterSpacing:0.7,textTransform:"uppercase",fontFamily:"'DM Sans',sans-serif",textDecoration:"underline",textDecorationColor:C.accent+"44",textUnderlineOffset:3}}>{label}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.accent} strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>{hint&&<div style={{fontSize:10,color:C.info,marginBottom:4,fontStyle:"italic"}}>{hint}</div>}<div style={{position:"relative"}}><span style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",color:C.dim,fontSize:15,fontWeight:600}}>£</span><input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={value} onChange={e=>{const v=e.target.value;if(v===""||/^[0-9]*\.?[0-9]*$/.test(v))onChange(v)}} placeholder="0" style={{width:"100%",padding:"13px 14px 13px 30px",background:C.bg,border:`1px solid ${hint?C.info+"44":C.border}`,borderRadius:12,color:C.text,fontSize:16,fontFamily:"'JetBrains Mono',monospace",outline:"none",boxSizing:"border-box"}} onFocus={e=>{e.target.style.borderColor=C.accent}} onBlur={e=>{e.target.style.borderColor=hint?C.info+"44":C.border}}/></div></div>)}
 function BL({label,value,pctLabel,color,onTap}){const cl=color||C.accent;return(<div onClick={onTap} style={{background:`linear-gradient(135deg,${cl}08,${cl}03)`,border:`1px solid ${cl}22`,borderRadius:16,padding:"20px 22px",marginBottom:12,cursor:onTap?"pointer":"default"}}><div style={{display:"flex",alignItems:"center",gap:6,marginBottom:10}}><span style={{fontSize:12,color:C.accent,fontWeight:600,letterSpacing:0.7,textTransform:"uppercase",textDecoration:onTap?"underline":"none",textDecorationColor:C.accent+"44",textUnderlineOffset:3}}>{label}</span>{onTap&&<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={C.accent} strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>}</div><div style={{display:"flex",alignItems:"baseline",gap:12,justifyContent:"center"}}><span style={{fontSize:36,fontWeight:700,color:cl,fontFamily:"'JetBrains Mono',monospace",letterSpacing:-1}}>{value}</span>{pctLabel&&<span style={{fontSize:18,fontWeight:600,color:cl,opacity:0.7,fontFamily:"'JetBrains Mono',monospace"}}>{pctLabel}</span>}</div></div>)}
 function Ins({type,title,text}){const g={warning:{c:C.warn,bg:C.warnDim,i:"⚠"},success:{c:C.accent,bg:C.accentDim,i:"✓"},info:{c:C.info,bg:C.infoDim,i:"i"},caution:{c:C.caution,bg:C.cautionDim,i:"!"}}[type]||{c:C.info,bg:C.infoDim,i:"i"};return(<div style={{background:g.bg,borderLeft:`3px solid ${g.c}`,borderRadius:"0 12px 12px 0",padding:"13px 16px",marginBottom:8}}><div style={{fontSize:13,fontWeight:600,color:g.c,marginBottom:3}}>{g.i} {title}</div><div style={{fontSize:13,color:C.sub,lineHeight:1.55}}>{text}</div></div>)}
 function Act({text}){return(<div style={{display:"flex",alignItems:"center",gap:10,padding:"10px 14px",background:C.accentDim,borderRadius:10,marginBottom:6}}><div style={{width:6,height:6,borderRadius:"50%",background:C.accent,flexShrink:0}}/><span style={{fontSize:13,color:C.text}}>{text}</span></div>)}
@@ -209,7 +209,7 @@ function ExplainPage({id,onBack}){const d=EX[id];if(!d)return(<Page onBack={onBa
 function vsTarget(actual,target,higher){if(!target||target==="")return null;const t=parseFloat(target),a=parseFloat(actual);if(isNaN(t))return null;return{ok:higher?(a>=t):(a<=t),target:t,diff:Math.abs(a-t)}}
 function TargetIns({label,actual,target,higher}){const r=vsTarget(actual,target,higher);if(!r)return null;return r.ok?(<Ins type="success" title={`${label} — on target`} text={`${label} is ${pct(actual)}. Your target is ${pct(r.target)}. You're ${pct(r.diff)} better than your target.`}/>):(<Ins type="warning" title={`${label} — off target`} text={`${label} is ${pct(actual)}. Your target is ${pct(r.target)}. You're ${pct(r.diff)} ${higher?"below":"above"} your target.`}/>)}
 
-function KPIInput({label,field,value,onChange,onBlur}){return(<div style={{marginBottom:12}}><div style={{fontSize:12,color:C.purple,fontWeight:600,letterSpacing:0.7,textTransform:"uppercase",marginBottom:6}}>{label}</div><div style={{position:"relative"}}><span style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",color:C.dim,fontSize:14,fontWeight:600}}>%</span><input type="number" value={value} onChange={e=>onChange(field,e.target.value)} onBlur={onBlur} placeholder="0" style={{width:"100%",padding:"12px 36px 12px 14px",background:C.bg,border:`1px solid ${C.border}`,borderRadius:12,color:C.text,fontSize:16,fontFamily:"'JetBrains Mono',monospace",outline:"none",boxSizing:"border-box"}} onFocus={e=>{e.target.style.borderColor=C.purple}}/></div></div>)}
+function KPIInput({label,field,value,onChange,onBlur}){return(<div style={{marginBottom:12}}><div style={{fontSize:12,color:C.purple,fontWeight:600,letterSpacing:0.7,textTransform:"uppercase",marginBottom:6}}>{label}</div><div style={{position:"relative"}}><span style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",color:C.dim,fontSize:14,fontWeight:600}}>%</span><input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={value} onChange={e=>{const v=e.target.value;if(v===""||/^[0-9]*\.?[0-9]*$/.test(v))onChange(field,v)}} onBlur={onBlur} placeholder="0" style={{width:"100%",padding:"12px 36px 12px 14px",background:C.bg,border:`1px solid ${C.border}`,borderRadius:12,color:C.text,fontSize:16,fontFamily:"'JetBrains Mono',monospace",outline:"none",boxSizing:"border-box"}} onFocus={e=>{e.target.style.borderColor=C.purple}}/></div></div>)}
 
 /* ═══════════════════════════════════════════════════════════════════
    SHARED STATE HELPERS — auto-fill extension
@@ -245,7 +245,7 @@ function KPIPage({onBack,nav,kpis,setKpis}){
   const setL=useCallback((k,v)=>setLocal(prev=>({...prev,[k]:v})),[]);
   const localRef=useRef(local);localRef.current=local;
   const sync=useCallback(()=>setKpis(localRef.current),[setKpis]);
-  return(<Page onBack={()=>{sync();onBack()}} backLabel="Home"><div style={{fontSize:48,marginBottom:6}}>🎯</div><Ttl text="KPI Targets" sub="Set your targets. Results will be measured against these."/><button onClick={()=>nav("explain:kpi-info")} style={{display:"flex",alignItems:"center",gap:6,background:C.purpleDim,border:`1px solid ${C.purple}22`,borderRadius:10,padding:"10px 14px",marginBottom:20,cursor:"pointer",width:"100%"}}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.purple} strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span style={{fontSize:13,color:C.purple,fontWeight:500}}>What are KPI targets?</span></button>
+  return(<Page onBack={()=>{sync();onBack()}} backLabel="Back"><div style={{fontSize:48,marginBottom:6}}>🎯</div><Ttl text="KPI Targets" sub="Set your targets. Results will be measured against these."/><button onClick={()=>nav("explain:kpi-info")} style={{display:"flex",alignItems:"center",gap:6,background:C.purpleDim,border:`1px solid ${C.purple}22`,borderRadius:10,padding:"10px 14px",marginBottom:20,cursor:"pointer",width:"100%"}}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.purple} strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span style={{fontSize:13,color:C.purple,fontWeight:500}}>What are KPI targets?</span></button>
     <SD label="Cost Control"/><KPIInput label="Max COGS %" field="cogs" value={local.cogs||""} onChange={setL} onBlur={sync}/><KPIInput label="Min GP %" field="gp" value={local.gp||""} onChange={setL} onBlur={sync}/>
     <SD label="Losses"/><KPIInput label="Max Waste %" field="waste" value={local.waste||""} onChange={setL} onBlur={sync}/><KPIInput label="Max Breakage %" field="breakage" value={local.breakage||""} onChange={setL} onBlur={sync}/><KPIInput label="Max Comps %" field="comps" value={local.comps||""} onChange={setL} onBlur={sync}/><KPIInput label="Max Total Losses %" field="totalLosses" value={local.totalLosses||""} onChange={setL} onBlur={sync}/>
     <SD label="Labour & Overheads"/><KPIInput label="Max Labour %" field="labour" value={local.labour||""} onChange={setL} onBlur={sync}/><KPIInput label="Max Overheads %" field="overheads" value={local.overheads||""} onChange={setL} onBlur={sync}/>
@@ -259,7 +259,7 @@ function KPIPage({onBack,nav,kpis,setKpis}){
 /* ═══════════════════════════════════════════════════════════════════
    HOME
    ═══════════════════════════════════════════════════════════════════ */
-function Home({nav}){return(<Page><div style={{textAlign:"center",padding:"36px 0 6px"}}><div style={{width:60,height:60,borderRadius:17,margin:"0 auto 16px",background:`linear-gradient(135deg,${C.accent},#00A889)`,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 8px 28px ${C.accentGlow}`}}><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 8v4l3 3"/></svg></div><h1 style={{fontSize:30,fontWeight:800,margin:0,letterSpacing:-0.8,fontFamily:"'Playfair Display',serif"}}>OpsInsight</h1><p style={{fontSize:13,color:C.sub,margin:"8px auto 0",lineHeight:1.45,maxWidth:240}}>Understand your numbers.<br/>Improve your business.</p></div><div style={{marginTop:30}}>
+function Home({nav}){return(<Page><div style={{textAlign:"center",padding:"36px 0 6px"}}><div style={{width:60,height:60,borderRadius:17,margin:"0 auto 16px",background:`linear-gradient(135deg,${C.accent},#00A889)`,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:`0 8px 28px ${C.accentGlow}`}}><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 8v4l3 3"/></svg></div><h1 style={{fontSize:30,fontWeight:800,margin:0,letterSpacing:-0.8,fontFamily:"'Playfair Display',serif"}}>OpsInsight</h1><p style={{fontSize:13,color:C.sub,margin:"8px auto 0",lineHeight:1.45,maxWidth:240}}>Understand your numbers.<br/>Improve your business.</p></div><div style={{marginTop:24}}><NB icon="🚀" label="Start Here" desc="New to finance? Learn step by step" onClick={()=>nav("starthere")} delay={0.02}/></div><div style={{marginTop:12}}>
     <NB icon="🎯" label="KPI Targets" desc="Set your performance targets" onClick={()=>nav("kpi")} delay={0.04}/>
     <NB icon="📦" label="Cost of Goods Sold (COGS)" desc="Know your true stock usage" onClick={()=>nav("cogs")} delay={0.08}/>
     <NB icon="📈" label="Gross Profit (GP%)" desc="Measure your profitability" onClick={()=>nav("gp")} delay={0.12}/>
@@ -300,7 +300,7 @@ const ABBR_LIST=[
 ];
 
 function AbbreviationsPage({onBack,nav}){
-  return(<Page onBack={onBack} backLabel="Home">
+  return(<Page onBack={onBack} backLabel="Back">
     <div style={{fontSize:48,marginBottom:6}}>📖</div>
     <Ttl text="Abbreviations (Ops Language)" sub="Common hospitality terms explained. Tap any to learn more."/>
     {ABBR_LIST.map(section=>(
@@ -339,7 +339,7 @@ const LEAD_LIST=[
 ];
 
 function LeadershipPage({onBack,nav}){
-  return(<Page onBack={onBack} backLabel="Home">
+  return(<Page onBack={onBack} backLabel="Back">
     <div style={{fontSize:48,marginBottom:6}}>🧭</div>
     <Ttl text="Leadership Tips" sub="Practical advice for hospitality managers. Tap any topic to learn more."/>
     {LEAD_LIST.map((item,i)=>(
@@ -364,6 +364,61 @@ function LeadershipPage({onBack,nav}){
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   START HERE PAGE
+   ═══════════════════════════════════════════════════════════════════ */
+const START_STEPS=[
+  {n:1,title:"Revenue (Sales)",desc:"Start by understanding the money coming into the business.",meaning:"Revenue is your Net Sales excluding VAT for the period you are reviewing.",action:"Go to COGS or GP% and enter Revenue (Sales).",to:"gp"},
+  {n:2,title:"Cost of Goods Sold (COGS)",desc:"Learn what stock the business actually used.",meaning:"COGS shows the cost of food and drink used to generate sales.",action:"Open COGS and learn Opening Stock, Purchases, and Closing Stock.",to:"cogs"},
+  {n:3,title:"Gross Profit (GP%)",desc:"Once you understand Revenue and COGS, learn GP%.",meaning:"GP% shows how much money is left after paying for food and drink costs.",action:"Open Gross Profit and check how Revenue and COGS connect.",to:"gp"},
+  {n:4,title:"Waste, Breakage & Comps",desc:"Learn where profit leaks from the business.",meaning:"Waste, breakage and comps are costs that reduce performance without always being obvious.",action:"Track them weekly and compare them to Net Revenue.",to:"waste"},
+  {n:5,title:"Labour",desc:"Learn how team cost affects the business.",meaning:"Labour cost shows how much is spent on the team compared to sales.",action:"Use the P&L page to review wages, NI, pension, agency and labour %.",to:"pnl"},
+  {n:6,title:"P&L Breakdown",desc:"Now look at the full business picture.",meaning:"The P&L shows Revenue, Cost of Sales, Labour, Overheads and Net Profit.",action:"Read the P&L from top to bottom like a waterfall.",to:"pnl"},
+  {n:7,title:"KPI Targets",desc:"Once you understand the numbers, set your targets.",meaning:"Targets help you know if performance is good or off track.",action:"Set realistic targets for GP%, COGS, labour, waste and profit.",to:"kpi"},
+  {n:8,title:"Insights",desc:"Compare actual performance against your own KPI targets.",meaning:"Insights tells you what needs attention first.",action:"Check Insights after entering your figures.",to:"insights"},
+  {n:9,title:"How to Fix",desc:"Once you know what is off target, learn what to do about it.",meaning:"How to Fix gives practical actions for common problems like GP% too low, labour too high or waste too high.",action:"Open the problem that matches your result and follow the checks.",to:"howtofix"},
+];
+
+function StartHerePage({onBack,nav}){
+  return(<Page onBack={onBack} backLabel="Back">
+    <div style={{fontSize:48,marginBottom:6}}>🚀</div>
+    <Ttl text="Start Here"/>
+
+    <div style={{background:C.accentDim,border:`1px solid ${C.accent}22`,borderRadius:14,padding:"16px 18px",marginBottom:20}}>
+      <div style={{fontSize:13,color:C.text,lineHeight:1.6,opacity:0.9}}>New to hospitality finance? Start with one section at a time. You do not need to understand the full P&L on day one. Learn the numbers in the same order the business works.</div>
+      <div style={{fontSize:12,color:C.accent,lineHeight:1.5,marginTop:10,fontWeight:600}}>Best learning order: Revenue → COGS → GP% → Waste → Labour → P&L → KPI Targets → Insights → How to Fix</div>
+    </div>
+
+    {START_STEPS.map((s,i)=>(
+      <button key={s.n} onClick={()=>nav(s.to)} style={{
+        width:"100%",display:"flex",alignItems:"flex-start",gap:12,
+        padding:"16px 16px",background:C.surface,border:`1px solid ${C.border}`,
+        borderRadius:14,marginBottom:8,cursor:"pointer",textAlign:"left",
+        boxSizing:"border-box",transition:"all 0.2s",
+        animation:`fadeUp 0.3s ease ${i*0.04}s both`,
+      }}
+      onMouseEnter={e=>{e.currentTarget.style.background=C.surfaceUp;e.currentTarget.style.borderColor=C.borderL}}
+      onMouseLeave={e=>{e.currentTarget.style.background=C.surface;e.currentTarget.style.borderColor=C.border}}>
+        <div style={{width:32,height:32,borderRadius:10,background:C.accentDim,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:2}}>
+          <span style={{fontSize:14,fontWeight:700,color:C.accent,fontFamily:"'JetBrains Mono',monospace"}}>{s.n}</span>
+        </div>
+        <div style={{flex:1,minWidth:0}}>
+          <div style={{fontSize:14,fontWeight:600,color:C.text}}>{s.title}</div>
+          <div style={{fontSize:12,color:C.sub,marginTop:3,lineHeight:1.4}}>{s.desc}</div>
+          <div style={{fontSize:11,color:C.dim,marginTop:4,lineHeight:1.4,fontStyle:"italic"}}>{s.meaning}</div>
+          <div style={{fontSize:11,color:C.accent,marginTop:4,opacity:0.8}}>→ {s.action}</div>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.dim} strokeWidth="2" strokeLinecap="round" style={{flexShrink:0,marginTop:6}}><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    ))}
+
+    <div style={{background:C.surface,border:`1px solid ${C.border}`,borderRadius:14,padding:"16px 18px",marginTop:12}}>
+      <div style={{fontSize:13,color:C.text,lineHeight:1.6,opacity:0.85}}>If you are new, do not start with the full P&L. Start with Revenue, COGS and GP%. Once those make sense, the rest becomes much easier.</div>
+      <div style={{fontSize:12,color:C.sub,lineHeight:1.5,marginTop:8}}>Do not try to learn everything in one day. Learn one number, practise it, then move to the next.</div>
+    </div>
+  </Page>);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    FEEDBACK PAGE
    Email target: appOpsInsight@gmail.com (hidden from user)
    Ready to wire to EmailJS / Formspree / serverless endpoint
@@ -375,7 +430,7 @@ const FEEDBACK_EMAIL="appOpsInsight@gmail.com";
 //   2. Create a form, point it to appOpsInsight@gmail.com
 //   3. Copy the form ID (e.g. "xpzvqkdl")
 //   4. Paste it below
-const FORMSPREE_ID=""; // ← paste your Formspree ID here when ready
+const FORMSPREE_ID="xyklaydy";
 
 function FeedbackPage({onBack}){
   const[name,setName]=useState("");
@@ -417,7 +472,7 @@ function FeedbackPage({onBack}){
   };
 
   if(sent){
-    return(<Page onBack={onBack} backLabel="Home">
+    return(<Page onBack={onBack} backLabel="Back">
       <div style={{textAlign:"center",padding:"60px 0 20px"}}>
         <div style={{fontSize:64,marginBottom:16}}>✅</div>
         <h2 style={{fontSize:22,fontWeight:700,margin:"0 0 10px",color:C.accent}}>Thank you!</h2>
@@ -429,7 +484,7 @@ function FeedbackPage({onBack}){
 
   const inputStyle={width:"100%",padding:"12px 14px",background:C.bg,border:`1px solid ${C.border}`,borderRadius:12,color:C.text,fontSize:15,fontFamily:"'DM Sans',sans-serif",outline:"none",boxSizing:"border-box",marginBottom:14};
 
-  return(<Page onBack={onBack} backLabel="Home">
+  return(<Page onBack={onBack} backLabel="Back">
     <div style={{fontSize:48,marginBottom:6}}>💬</div>
     <Ttl text="Send Feedback" sub="Help us improve OpsInsight. All feedback is welcome — good or bad."/>
 
@@ -458,7 +513,7 @@ function FeedbackPage({onBack}){
    HOW TO FIX PAGES
    ═══════════════════════════════════════════════════════════════════ */
 function HowToFixPage({onBack,nav}){
-  return(<Page onBack={onBack} backLabel="Home">
+  return(<Page onBack={onBack} backLabel="Back">
     <div style={{fontSize:48,marginBottom:6}}>🔧</div>
     <Ttl text="How to Fix" sub="My number is bad — what do I do? Tap a problem to see actions."/>
     {FIX_LIST.map((item,i)=>{const d=FIX_DATA[item.id];return(
@@ -518,14 +573,14 @@ function COGSPage({onBack,nav,data,setData,kpis,shared,setShared}){
   const has=o>0||p>0;
   // Sync calculated COGS to shared
   useEffect(()=>{if(has&&cogs>0)setShared(prev=>({...prev,cogs:String(cogs)}))},[cogs,has]);
-  return(<Page onBack={onBack} backLabel="Home"><Ttl text="Cost of Goods Sold" sub="Tap any label to learn what it means"/>
+  return(<Page onBack={onBack} backLabel="Back"><Ttl text="Cost of Goods Sold" sub="Tap any label to learn what it means"/>
     <TapInput label="Opening Stock" value={data.os||""} onChange={v=>s("os",v)} onTap={()=>nav("explain:opening-stock")}/>
     <TapInput label="Purchases" value={data.pu||""} onChange={v=>s("pu",v)} onTap={()=>nav("explain:purchases")}/>
     <TapInput label="Closing Stock" value={data.cs||""} onChange={v=>s("cs",v)} onTap={()=>nav("explain:closing-stock")}/>
     <TapInput label="Revenue (Sales)" value={rv.val} onChange={v=>s("rv",v)} onTap={()=>nav("explain:revenue-sales")} hint={autoHint(rv.isAuto,"another section")}/>
     {has&&cogs>=0&&<div style={{marginTop:20,animation:"fadeUp 0.3s ease"}}><BL label="Cost of Goods Sold" value={fmt(cogs)} pctLabel={r>0?pct(cogsPct):undefined} color={cogsPct>35?C.warn:C.accent} onTap={()=>nav("explain:cogs-result")}/>{r>0&&<BL label="Gross Profit" value={fmt(gp)} pctLabel={pct(gpPct)} color={gpPct<60?C.warn:gpPct<65?C.caution:C.accent} onTap={()=>nav("explain:gp-result")}/>}{r>0&&<TargetIns label="COGS" actual={cogsPct} target={kpis.cogs} higher={false}/>}{r>0&&!kpis.cogs&&cogsPct>35&&<Ins type="warning" title="High" text={`COGS ${pct(cogsPct)} above 35%.`}/>}{r>0&&!kpis.cogs&&cogsPct<=35&&<Ins type="success" title="Healthy" text={`COGS ${pct(cogsPct)}.`}/>}<Dv/><div style={{fontSize:12,fontWeight:700,color:C.sub,textTransform:"uppercase",letterSpacing:0.8,marginBottom:12}}>Calculation</div><div style={{background:C.surface,borderRadius:14,padding:"14px 18px",border:`1px solid ${C.border}`}}><CR label="Opening Stock" value={o}/><CR label="+ Purchases" value={p}/><CR label="− Closing Stock" value={cl}/><CR label="= Cost of Goods Sold" value={cogs} pctVal={r>0?cogsPct:undefined} color={cogsPct>35?C.warn:C.accent} bold onTap={()=>nav("explain:cogs-result")} border={r>0}/>{r>0&&<CR label="Revenue (Sales)" value={r}/>}{r>0&&<CR label="= Gross Profit" value={gp} pctVal={gpPct} color={gpPct<60?C.warn:C.accent} bold border={false} onTap={()=>nav("explain:gp-result")}/>}</div></div>}
     <HowCalc onTap={()=>nav("explain:how-cogs")}/>
-    <StartAgainBtn onReset={()=>setData({})}/>
+    <StartAgainBtn onReset={()=>setData({rv:""})}/>
   </Page>);
 }
 
@@ -537,12 +592,12 @@ function GPPage({onBack,nav,data,setData,kpis,shared,setShared}){
   const rv=useSharedField(data.rv,shared.revenue);
   const co=useSharedField(data.co,shared.cogs);
   const r=parseFloat(rv.val)||0,c=parseFloat(co.val)||0,gp=r-c,gpPct=r>0?(gp/r)*100:0,cPct=r>0?(c/r)*100:0;
-  return(<Page onBack={onBack} backLabel="Home"><Ttl text="Gross Profit (GP%)" sub="Tap any label to learn what it means"/>
+  return(<Page onBack={onBack} backLabel="Back"><Ttl text="Gross Profit (GP%)" sub="Tap any label to learn what it means"/>
     <TapInput label="Revenue (Sales)" value={rv.val} onChange={v=>s("rv",v)} onTap={()=>nav("explain:gp-revenue")} hint={autoHint(rv.isAuto,"COGS / P&L")}/>
     <TapInput label="Cost of Goods Sold" value={co.val} onChange={v=>s("co",v)} onTap={()=>nav("explain:gp-cogs")} hint={autoHint(co.isAuto,"COGS calculation")}/>
     {r>0&&<div style={{marginTop:20,animation:"fadeUp 0.3s ease"}}><BL label="Gross Profit" value={fmt(gp)} pctLabel={pct(gpPct)} color={gpPct<60?C.warn:gpPct<65?C.caution:C.accent} onTap={()=>nav("explain:gp-result")}/><TargetIns label="GP" actual={gpPct} target={kpis.gp} higher={true}/><Dv/><div style={{fontSize:12,fontWeight:700,color:C.sub,textTransform:"uppercase",letterSpacing:0.8,marginBottom:12}}>Calculation</div><div style={{background:C.surface,borderRadius:14,padding:"14px 18px",border:`1px solid ${C.border}`}}><CR label="Revenue (Sales)" value={r} pctVal={100}/><CR label="− Cost of Goods Sold" value={c} pctVal={cPct}/><CR label="= Gross Profit" value={gp} pctVal={gpPct} color={gpPct<60?C.warn:C.accent} bold border={false} onTap={()=>nav("explain:gp-result")}/></div></div>}
     <HowCalc onTap={()=>nav("explain:how-gp")}/>
-    <StartAgainBtn onReset={()=>setData({})}/>
+    <StartAgainBtn onReset={()=>setData({rv:"",co:""})}/>
   </Page>);
 }
 
@@ -555,14 +610,14 @@ function WastePage({onBack,nav,data,setData,kpis,shared,setShared}){
   const w=parseFloat(data.wa)||0,b=parseFloat(data.br)||0,co=parseFloat(data.cm)||0,r=parseFloat(rv.val)||0;
   const wP=r>0?(w/r)*100:0,bP=r>0?(b/r)*100:0,cP=r>0?(co/r)*100:0,tot=w+b+co,tP=r>0?(tot/r)*100:0;
   const has=w>0||b>0||co>0;
-  return(<Page onBack={onBack} backLabel="Home"><Ttl text="Waste, Breakage & Comps" sub="Tap any label to learn what it means"/>
+  return(<Page onBack={onBack} backLabel="Back"><Ttl text="Waste, Breakage & Comps" sub="Tap any label to learn what it means"/>
     <TapInput label="Waste" value={data.wa||""} onChange={v=>s("wa",v)} onTap={()=>nav("explain:waste-waste")}/>
     <TapInput label="Breakage" value={data.br||""} onChange={v=>s("br",v)} onTap={()=>nav("explain:waste-breakage")}/>
     <TapInput label="Comps" value={data.cm||""} onChange={v=>s("cm",v)} onTap={()=>nav("explain:waste-comps")}/>
     <TapInput label="Revenue (Sales)" value={rv.val} onChange={v=>s("rv",v)} onTap={()=>nav("explain:waste-revenue")} hint={autoHint(rv.isAuto,"another section")}/>
     {has&&<div style={{marginTop:20,animation:"fadeUp 0.3s ease"}}><BL label="Total Losses" value={fmt(tot)} pctLabel={r>0?pct(tP):undefined} color={tP>8?C.warn:tP>5?C.caution:C.accent} onTap={()=>nav("explain:waste-result")}/><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:14}}>{[["Waste",w,wP,"🗑️"],["Breakage",b,bP,"💔"],["Comps",co,cP,"🎁"]].map(([l,v,p,i])=>(<div key={l} style={{background:C.surface,borderRadius:12,padding:"13px 8px",textAlign:"center",border:`1px solid ${C.border}`}}><div style={{fontSize:16,marginBottom:3}}>{i}</div><div style={{fontSize:15,fontWeight:700,fontFamily:"'JetBrains Mono',monospace",color:C.text}}>{fmt(v)}</div>{r>0&&<div style={{fontSize:12,color:C.sub,marginTop:2}}>{pct(p)}</div>}</div>))}</div>{r>0&&<React.Fragment><TargetIns label="Waste" actual={wP} target={kpis.waste} higher={false}/><TargetIns label="Breakage" actual={bP} target={kpis.breakage} higher={false}/><TargetIns label="Comps" actual={cP} target={kpis.comps} higher={false}/><TargetIns label="Total Losses" actual={tP} target={kpis.totalLosses} higher={false}/></React.Fragment>}<Dv/><div style={{fontSize:12,fontWeight:700,color:C.sub,textTransform:"uppercase",letterSpacing:0.8,marginBottom:12}}>Calculation</div><div style={{background:C.surface,borderRadius:14,padding:"14px 18px",border:`1px solid ${C.border}`}}><CR label="Waste" value={w} pctVal={r>0?wP:undefined}/><CR label="+ Breakage" value={b} pctVal={r>0?bP:undefined}/><CR label="+ Comps" value={co} pctVal={r>0?cP:undefined}/><CR label="= Total Losses" value={tot} pctVal={r>0?tP:undefined} color={tP>8?C.warn:C.accent} bold onTap={()=>nav("explain:waste-result")} border={r>0}/>{r>0&&<CR label="Revenue" value={r}/>}{r>0&&<CR label="= After Losses" value={r-tot} pctVal={100-tP} bold border={false}/>}</div></div>}
     <HowCalc onTap={()=>nav("explain:how-waste")}/>
-    <StartAgainBtn onReset={()=>setData({})}/>
+    <StartAgainBtn onReset={()=>setData({rv:""})}/>
   </Page>);
 }
 
@@ -582,14 +637,14 @@ function PLPage({onBack,nav,data,setData,kpis,shared,setShared}){
   const has=R>0,hc=tCOS>0||tLab>0||tOH>0;
   // Sync P&L totals to shared
   useEffect(()=>{if(has&&hc)setShared(prev=>({...prev,totalCOS:String(tCOS),totalLabour:String(tLab),totalOverheads:String(tOH)}))},[tCOS,tLab,tOH,has,hc]);
-  return(<Page onBack={onBack} backLabel="Home"><Ttl text="P&L Breakdown" sub="Enter figures. Tap any label to learn what it means."/>
+  return(<Page onBack={onBack} backLabel="Back"><Ttl text="P&L Breakdown" sub="Enter figures. Tap any label to learn what it means."/>
     <SD label="Revenue"/><TapInput label="Revenue (Sales)" value={rv.val} onChange={v=>s("rev",v)} onTap={()=>nav("explain:pnl-revenue")} hint={autoHint(rv.isAuto,"another section")}/>
     <SD label="Cost of Sales"/><TapInput label="Food Cost" value={data.fc||""} onChange={v=>s("fc",v)} onTap={()=>nav("explain:pnl-food-cost")}/><TapInput label="Beverage Cost" value={data.bc||""} onChange={v=>s("bc",v)} onTap={()=>nav("explain:pnl-beverage-cost")}/><TapInput label="Other CoS" value={data.oc||""} onChange={v=>s("oc",v)} onTap={()=>nav("explain:pnl-other-cos")}/>
     <SD label="Labour"/><TapInput label="Wages & Salaries" value={data.wg||""} onChange={v=>s("wg",v)} onTap={()=>nav("explain:pnl-wages")}/><TapInput label="NI & Pension" value={data.ni||""} onChange={v=>s("ni",v)} onTap={()=>nav("explain:pnl-ni-pension")}/><TapInput label="Agency Staff" value={data.ag||""} onChange={v=>s("ag",v)} onTap={()=>nav("explain:pnl-agency")}/>
     <SD label="Overheads"/><TapInput label="Rent & Rates" value={data.rn||""} onChange={v=>s("rn",v)} onTap={()=>nav("explain:pnl-rent")}/><TapInput label="Utilities" value={data.ut||""} onChange={v=>s("ut",v)} onTap={()=>nav("explain:pnl-utilities")}/><TapInput label="Insurance" value={data.ins||""} onChange={v=>s("ins",v)} onTap={()=>nav("explain:pnl-insurance")}/><TapInput label="Marketing" value={data.mk||""} onChange={v=>s("mk",v)} onTap={()=>nav("explain:pnl-marketing")}/><TapInput label="Repairs & Maintenance" value={data.rp||""} onChange={v=>s("rp",v)} onTap={()=>nav("explain:pnl-repairs")}/><TapInput label="Other Overheads" value={data.oh||""} onChange={v=>s("oh",v)} onTap={()=>nav("explain:pnl-other-overheads")}/>
     {has&&hc&&<div style={{marginTop:24,animation:"fadeUp 0.3s ease"}}>{tCOS>0&&<BL label="Gross Profit" value={fmt(gp)} pctLabel={pct(gpP)} color={gpP<60?C.warn:gpP<65?C.caution:C.accent} onTap={()=>nav("explain:pnl-gp")}/>}<BL label="Net Profit" value={fmt(net)} pctLabel={pct(netP)} color={netP<5?C.warn:netP<8?C.caution:C.accent} onTap={()=>nav("explain:pnl-net")}/><TargetIns label="GP" actual={gpP} target={kpis.gp} higher={true}/><TargetIns label="Labour" actual={labP} target={kpis.labour} higher={false}/><TargetIns label="Overheads" actual={ohP} target={kpis.overheads} higher={false}/><TargetIns label="Net Profit" actual={netP} target={kpis.netProfit} higher={true}/><Dv/><div style={{fontSize:12,fontWeight:700,color:C.sub,textTransform:"uppercase",letterSpacing:0.8,marginBottom:12}}>Full P&L</div><div style={{background:C.surface,borderRadius:14,padding:"14px 18px",border:`1px solid ${C.border}`}}><CR label="Revenue" value={R} pctVal={100} onTap={()=>nav("explain:pnl-revenue")}/>{vfc>0&&<CR label="  Food" value={-vfc} pctVal={(vfc/R)*100}/>}{vbc>0&&<CR label="  Beverage" value={-vbc} pctVal={(vbc/R)*100}/>}{voc>0&&<CR label="  Other CoS" value={-voc} pctVal={(voc/R)*100}/>}{tCOS>0&&<CR label="= Gross Profit" value={gp} pctVal={gpP} color={gpP<60?C.warn:C.accent} bold onTap={()=>nav("explain:pnl-gp")}/>}{vwg>0&&<CR label="  Wages" value={-vwg} pctVal={(vwg/R)*100}/>}{vni>0&&<CR label="  NI/Pension" value={-vni} pctVal={(vni/R)*100}/>}{vag>0&&<CR label="  Agency" value={-vag} pctVal={(vag/R)*100}/>}{tLab>0&&<CR label="Total Labour" value={-tLab} pctVal={labP} color={labP>35?C.warn:C.text} bold/>}{vrn>0&&<CR label="  Rent" value={-vrn} pctVal={(vrn/R)*100}/>}{vut>0&&<CR label="  Utilities" value={-vut} pctVal={(vut/R)*100}/>}{vis>0&&<CR label="  Insurance" value={-vis} pctVal={(vis/R)*100}/>}{vmk>0&&<CR label="  Marketing" value={-vmk} pctVal={(vmk/R)*100}/>}{vrp>0&&<CR label="  Repairs" value={-vrp} pctVal={(vrp/R)*100}/>}{voh>0&&<CR label="  Other" value={-voh} pctVal={(voh/R)*100}/>}{tOH>0&&<CR label="Total Overheads" value={-tOH} pctVal={ohP} color={ohP>25?C.warn:C.text} bold/>}<CR label="= NET PROFIT" value={net} pctVal={netP} color={netP<5?C.warn:C.accent} bold border={false} onTap={()=>nav("explain:pnl-net")}/></div></div>}
     <HowCalc onTap={()=>nav("explain:how-pnl")}/>
-    <StartAgainBtn onReset={()=>setData({})}/>
+    <StartAgainBtn onReset={()=>setData({rev:""})}/>
   </Page>);
 }
 
@@ -606,12 +661,12 @@ function EBITDAPage({onBack,nav,data,setData,kpis,shared,setShared}){
   const vd=parseFloat(data.dep)||0,vi=parseFloat(data.int)||0,vt=parseFloat(data.tax)||0;
   const ebitda=R-vc-vl-vo,eP=R>0?(ebitda/R)*100:0,net=ebitda-vd-vi-vt,nP=R>0?(net/R)*100:0;
   const has=R>0&&(vc>0||vl>0||vo>0);
-  return(<Page onBack={onBack} backLabel="Home"><Ttl text="EBITDA (Monthly)" sub="Earnings Before Interest, Tax, Depreciation and Amortisation"/>
+  return(<Page onBack={onBack} backLabel="Back"><Ttl text="EBITDA (Monthly)" sub="Earnings Before Interest, Tax, Depreciation and Amortisation"/>
     <SD label="Core"/><TapInput label="Revenue (Sales) for the Month" value={rv.val} onChange={v=>s("rev",v)} onTap={()=>nav("explain:ebitda-revenue")} hint={autoHint(rv.isAuto,"another section")}/><TapInput label="Total Cost of Sales" value={cos.val} onChange={v=>s("cos",v)} onTap={()=>nav("explain:ebitda-cos")} hint={autoHint(cos.isAuto,"P&L")}/><TapInput label="Total Labour" value={lab.val} onChange={v=>s("lab",v)} onTap={()=>nav("explain:pnl-wages")} hint={autoHint(lab.isAuto,"P&L")}/><TapInput label="Total Overheads" value={oh.val} onChange={v=>s("oh",v)} onTap={()=>nav("explain:pnl-rent")} hint={autoHint(oh.isAuto,"P&L")}/>
     <SD label="Below EBITDA"/><TapInput label="Depreciation" value={data.dep||""} onChange={v=>s("dep",v)} onTap={()=>nav("explain:ebitda-depreciation")}/><TapInput label="Interest" value={data.int||""} onChange={v=>s("int",v)} onTap={()=>nav("explain:ebitda-interest")}/><TapInput label="Tax" value={data.tax||""} onChange={v=>s("tax",v)} onTap={()=>nav("explain:ebitda-tax")}/>
     {has&&<div style={{marginTop:24,animation:"fadeUp 0.3s ease"}}><BL label="EBITDA (Monthly)" value={fmt(ebitda)} pctLabel={pct(eP)} color={eP<15?C.caution:C.accent} onTap={()=>nav("explain:ebitda-result")}/>{(vd>0||vi>0||vt>0)&&<BL label="Net Profit" value={fmt(net)} pctLabel={pct(nP)} color={nP<5?C.warn:C.accent} onTap={()=>nav("explain:pnl-net")}/>}<TargetIns label="EBITDA" actual={eP} target={kpis.ebitda} higher={true}/><Dv/><div style={{fontSize:12,fontWeight:700,color:C.sub,textTransform:"uppercase",letterSpacing:0.8,marginBottom:12}}>Calculation</div><div style={{background:C.surface,borderRadius:14,padding:"14px 18px",border:`1px solid ${C.border}`}}><CR label="Revenue" value={R} pctVal={100}/><CR label="− Cost of Sales" value={vc} pctVal={R>0?(vc/R)*100:0}/><CR label="− Labour" value={vl} pctVal={R>0?(vl/R)*100:0}/><CR label="− Overheads" value={vo} pctVal={R>0?(vo/R)*100:0}/><CR label="= EBITDA (Monthly)" value={ebitda} pctVal={eP} color={eP<15?C.caution:C.accent} bold onTap={()=>nav("explain:ebitda-result")} border={vd>0||vi>0||vt>0}/>{vd>0&&<CR label="− Depreciation" value={vd} pctVal={(vd/R)*100}/>}{vi>0&&<CR label="− Interest" value={vi} pctVal={(vi/R)*100}/>}{vt>0&&<CR label="− Tax" value={vt} pctVal={(vt/R)*100}/>}{(vd>0||vi>0||vt>0)&&<CR label="= Net Profit" value={net} pctVal={nP} color={nP<5?C.warn:C.accent} bold border={false} onTap={()=>nav("explain:pnl-net")}/>}</div></div>}
     <HowCalc onTap={()=>nav("explain:how-ebita")}/>
-    <StartAgainBtn onReset={()=>setData({})}/>
+    <StartAgainBtn onReset={()=>setData({rev:"",cos:"",lab:"",oh:""})}/>
   </Page>);
 }
 
@@ -624,12 +679,12 @@ function CAPEXPage({onBack,nav,data,setData,kpis,shared,setShared}){
   const R=parseFloat(rv.val)||0,vk=parseFloat(data.kit)||0,vf=parseFloat(data.fit)||0,vt=parseFloat(data.tech)||0,vo=parseFloat(data.oth)||0;
   const total=vk+vf+vt+vo,tP=R>0?(total/R)*100:0;
   const has=vk>0||vf>0||vt>0||vo>0;
-  return(<Page onBack={onBack} backLabel="Home"><Ttl text="CAPEX" sub="Capital Expenditure — investments in your business"/>
+  return(<Page onBack={onBack} backLabel="Back"><Ttl text="CAPEX" sub="Capital Expenditure — investments in your business"/>
     <TapInput label="Revenue (Sales) for %" value={rv.val} onChange={v=>s("rev",v)} onTap={()=>nav("explain:pnl-revenue")} hint={autoHint(rv.isAuto,"another section")}/>
     <SD label="Capital Items"/><TapInput label="Kitchen Equipment" value={data.kit||""} onChange={v=>s("kit",v)} onTap={()=>nav("explain:capex-kitchen")}/><TapInput label="Fit-out & Refurbishment" value={data.fit||""} onChange={v=>s("fit",v)} onTap={()=>nav("explain:capex-fitout")}/><TapInput label="Technology" value={data.tech||""} onChange={v=>s("tech",v)} onTap={()=>nav("explain:capex-technology")}/><TapInput label="Other CAPEX" value={data.oth||""} onChange={v=>s("oth",v)} onTap={()=>nav("explain:capex-other")}/>
     {has&&<div style={{marginTop:24,animation:"fadeUp 0.3s ease"}}><BL label="Total CAPEX" value={fmt(total)} pctLabel={R>0?pct(tP):undefined} color={C.info} onTap={()=>nav("explain:capex-result")}/><TargetIns label="CAPEX" actual={tP} target={kpis.capex} higher={false}/><Dv/><div style={{fontSize:12,fontWeight:700,color:C.sub,textTransform:"uppercase",letterSpacing:0.8,marginBottom:12}}>Calculation</div><div style={{background:C.surface,borderRadius:14,padding:"14px 18px",border:`1px solid ${C.border}`}}>{vk>0&&<CR label="Kitchen" value={vk} pctVal={R>0?(vk/R)*100:undefined}/>}{vf>0&&<CR label="Fit-out" value={vf} pctVal={R>0?(vf/R)*100:undefined}/>}{vt>0&&<CR label="Technology" value={vt} pctVal={R>0?(vt/R)*100:undefined}/>}{vo>0&&<CR label="Other" value={vo} pctVal={R>0?(vo/R)*100:undefined}/>}<CR label="= Total CAPEX" value={total} pctVal={R>0?tP:undefined} color={C.info} bold border={false} onTap={()=>nav("explain:capex-result")}/></div></div>}
     <HowCalc onTap={()=>nav("explain:how-capex")}/>
-    <StartAgainBtn onReset={()=>setData({})}/>
+    <StartAgainBtn onReset={()=>setData({rev:""})}/>
   </Page>);
 }
 
@@ -671,7 +726,7 @@ function InsightsPage({onBack,allData,kpis}){
   const cxTot=cxK+cxF+cxT+cxO,cxPct=cxR>0?(cxTot/cxR)*100:0;
   if(cxTot>0&&cxR>0)addMetric("CAPEX",cxPct,"capex",false,5,"max 5%");
   const hasData=primary.length>0||benchmarks.length>0;const warnCount=primary.filter(i=>i.type==="warning").length;
-  return(<Page onBack={onBack} backLabel="Home"><Ttl text="Insights" sub="How you're performing against your targets"/><div style={{background:`linear-gradient(135deg,${C.accent}0A,${C.info}06)`,border:`1px solid ${C.accent}14`,borderRadius:16,padding:"16px 18px",marginBottom:20}}><div style={{display:"flex",alignItems:"center",gap:10,marginBottom:6}}><span style={{fontSize:20}}>🧠</span><span style={{fontSize:14,fontWeight:600}}>Manager Briefing</span></div><div style={{fontSize:13,color:C.sub,lineHeight:1.5}}>{hasData?(warnCount>0?`${warnCount} area${warnCount!==1?"s":""} need${warnCount===1?"s":""} attention. Review below.`:"All metrics are on target. Keep it up."):"Enter numbers in any section and set your KPI targets to see insights here."}</div></div>
+  return(<Page onBack={onBack} backLabel="Back"><Ttl text="Insights" sub="How you're performing against your targets"/><div style={{background:`linear-gradient(135deg,${C.accent}0A,${C.info}06)`,border:`1px solid ${C.accent}14`,borderRadius:16,padding:"16px 18px",marginBottom:20}}><div style={{display:"flex",alignItems:"center",gap:10,marginBottom:6}}><span style={{fontSize:20}}>🧠</span><span style={{fontSize:14,fontWeight:600}}>Manager Briefing</span></div><div style={{fontSize:13,color:C.sub,lineHeight:1.5}}>{hasData?(warnCount>0?`${warnCount} area${warnCount!==1?"s":""} need${warnCount===1?"s":""} attention. Review below.`:"All metrics are on target. Keep it up."):"Enter numbers in any section and set your KPI targets to see insights here."}</div></div>
     {primary.length>0&&<React.Fragment><div style={{fontSize:12,fontWeight:700,color:C.sub,textTransform:"uppercase",letterSpacing:0.8,marginBottom:10}}>vs Your KPI Targets</div>{primary.map((x,i)=>(<div key={"p"+i} style={{animation:`fadeUp 0.35s ease ${i*0.06}s both`}}><Ins {...x}/></div>))}</React.Fragment>}
     {benchmarks.length>0&&<React.Fragment><Dv/><div style={{fontSize:12,fontWeight:700,color:C.dim,textTransform:"uppercase",letterSpacing:0.8,marginBottom:4}}>Commercial Benchmark Reference</div><div style={{fontSize:11,color:C.dim,marginBottom:10}}>No KPI target set for these. Showing general industry benchmarks for reference only.</div>{benchmarks.map((x,i)=>(<div key={"b"+i} style={{animation:`fadeUp 0.35s ease ${(primary.length+i)*0.06}s both`}}><Ins {...x}/></div>))}</React.Fragment>}
     {!hasData&&<Ins type="info" title="No Data Yet" text="Enter numbers in any category and set your KPI targets. Your insights will appear here."/>}
@@ -699,19 +754,20 @@ export default function OpsInsight(){
   const sp={shared,setShared};
   return(<React.Fragment>
     {pg==="home"&&<Home nav={nav}/>}
-    {pg==="kpi"&&<KPIPage onBack={home} nav={nav} kpis={kpis} setKpis={setKpis}/>}
-    {pg==="abbreviations"&&<AbbreviationsPage onBack={home} nav={nav}/>}
-    {pg==="leadership"&&<LeadershipPage onBack={home} nav={nav}/>}
-    {pg==="feedback"&&<FeedbackPage onBack={home}/>}
-    {pg==="howtofix"&&<HowToFixPage onBack={home} nav={nav}/>}
+    {pg==="starthere"&&<StartHerePage onBack={back} nav={nav}/>}
+    {pg==="kpi"&&<KPIPage onBack={back} nav={nav} kpis={kpis} setKpis={setKpis}/>}
+    {pg==="abbreviations"&&<AbbreviationsPage onBack={back} nav={nav}/>}
+    {pg==="leadership"&&<LeadershipPage onBack={back} nav={nav}/>}
+    {pg==="feedback"&&<FeedbackPage onBack={back}/>}
+    {pg==="howtofix"&&<HowToFixPage onBack={back} nav={nav}/>}
     {pg.startsWith("fix:")&&<FixDetailPage id={pg.replace("fix:","")} onBack={()=>back()}/>}
-    {pg==="cogs"&&<COGSPage onBack={home} nav={nav} data={cogsData} setData={setCogsData} kpis={kpis} {...sp}/>}
-    {pg==="gp"&&<GPPage onBack={home} nav={nav} data={gpData} setData={setGpData} kpis={kpis} {...sp}/>}
-    {pg==="pnl"&&<PLPage onBack={home} nav={nav} data={pnlData} setData={setPnlData} kpis={kpis} {...sp}/>}
-    {pg==="waste"&&<WastePage onBack={home} nav={nav} data={wasteData} setData={setWasteData} kpis={kpis} {...sp}/>}
-    {pg==="ebitda"&&<EBITDAPage onBack={home} nav={nav} data={ebitdaData} setData={setEbitdaData} kpis={kpis} {...sp}/>}
-    {pg==="capex"&&<CAPEXPage onBack={home} nav={nav} data={capexData} setData={setCapexData} kpis={kpis} {...sp}/>}
-    {pg==="insights"&&<InsightsPage onBack={home} allData={allData} kpis={kpis}/>}
+    {pg==="cogs"&&<COGSPage onBack={back} nav={nav} data={cogsData} setData={setCogsData} kpis={kpis} {...sp}/>}
+    {pg==="gp"&&<GPPage onBack={back} nav={nav} data={gpData} setData={setGpData} kpis={kpis} {...sp}/>}
+    {pg==="pnl"&&<PLPage onBack={back} nav={nav} data={pnlData} setData={setPnlData} kpis={kpis} {...sp}/>}
+    {pg==="waste"&&<WastePage onBack={back} nav={nav} data={wasteData} setData={setWasteData} kpis={kpis} {...sp}/>}
+    {pg==="ebitda"&&<EBITDAPage onBack={back} nav={nav} data={ebitdaData} setData={setEbitdaData} kpis={kpis} {...sp}/>}
+    {pg==="capex"&&<CAPEXPage onBack={back} nav={nav} data={capexData} setData={setCapexData} kpis={kpis} {...sp}/>}
+    {pg==="insights"&&<InsightsPage onBack={back} allData={allData} kpis={kpis}/>}
     {pg.startsWith("explain:")&&<ExplainPage id={pg.replace("explain:","")} onBack={back}/>}
   </React.Fragment>);
 }
