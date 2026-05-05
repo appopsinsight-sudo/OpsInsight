@@ -2,11 +2,14 @@
   "name": "OpsInsight",
   "short_name": "OpsInsight",
   "description": "Hospitality finance learning and calculator app",
+  "id": "/",
   "theme_color": "#0B0E13",
   "background_color": "#0B0E13",
   "display": "standalone",
   "orientation": "portrait",
   "start_url": "/",
+  "scope": "/",
+  "categories": ["business", "education", "finance"],
   "icons": [
     {
       "src": "/icon-192.png",
@@ -17,6 +20,28 @@
       "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-home.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Home screen"
+    },
+    {
+      "src": "/screenshot-cogs.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "COGS Calculator"
     }
   ]
 }
