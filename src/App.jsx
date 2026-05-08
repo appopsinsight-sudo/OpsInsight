@@ -269,7 +269,7 @@ function Home({nav}){return(<Page><div style={{textAlign:"center",padding:"36px 
     <NB icon="🏗️" label="CAPEX" desc="Capital investments" onClick={()=>nav("capex")} delay={0.28}/>
     <NB icon="🧠" label="Insights" desc="How you're performing against your targets" onClick={()=>nav("insights")} delay={0.32}/>
     <NB icon="🔧" label="How to Fix" desc="My number is bad — what do I do?" onClick={()=>nav("howtofix")} delay={0.36}/>
-  </div><div style={{marginTop:28}}><div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}><div style={{height:1,flex:1,background:C.border}}/><span style={{fontSize:11,fontWeight:700,color:C.dim,textTransform:"uppercase",letterSpacing:1}}>Tools & Learning</span><div style={{height:1,flex:1,background:C.border}}/></div><NB icon="📖" label="Abbreviations (Ops Language)" desc="Common hospitality terms explained" onClick={()=>nav("abbreviations")} delay={0.40}/><NB icon="🧭" label="Leadership Tips" desc="Practical advice for managers" onClick={()=>nav("leadership")} delay={0.44}/><NB icon="💬" label="Send Feedback" desc="Help us improve OpsInsight" onClick={()=>nav("feedback")} delay={0.48}/></div><div style={{textAlign:"center",marginTop:24,fontSize:11,color:C.dim}}>Built for hospitality teams</div><div style={{textAlign:"center",marginTop:6,fontSize:10,color:C.dim,opacity:0.5}}>OpsInsight v1.0 • We do not sell your data</div></Page>)}
+  </div><div style={{marginTop:28}}><div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}><div style={{height:1,flex:1,background:C.border}}/><span style={{fontSize:11,fontWeight:700,color:C.dim,textTransform:"uppercase",letterSpacing:1}}>Tools & Learning</span><div style={{height:1,flex:1,background:C.border}}/></div><NB icon="📖" label="Abbreviations (Ops Language)" desc="Common hospitality terms explained" onClick={()=>nav("abbreviations")} delay={0.40}/><NB icon="🪞" label="Life Analogy" desc="Your life is a P&L — see the analogy" onClick={()=>nav("reallife")} delay={0.42}/><NB icon="🧭" label="Leadership Tips" desc="Practical advice for managers" onClick={()=>nav("leadership")} delay={0.44}/><NB icon="💬" label="Send Feedback" desc="Help us improve OpsInsight" onClick={()=>nav("feedback")} delay={0.48}/></div><div style={{textAlign:"center",marginTop:24,fontSize:11,color:C.dim}}>Built for hospitality teams</div><div style={{textAlign:"center",marginTop:6,fontSize:10,color:C.dim,opacity:0.5}}>OpsInsight v1.0 • We do not sell your data</div></Page>)}
 
 /* ═══════════════════════════════════════════════════════════════════
    ABBREVIATIONS PAGE
@@ -360,6 +360,60 @@ function LeadershipPage({onBack,nav}){
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.dim} strokeWidth="2" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
       </button>
     ))}
+  </Page>);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FINANCE IN REAL LIFE PAGE
+   ═══════════════════════════════════════════════════════════════════ */
+const REALLIFE_ITEMS=[
+  {icon:"💷",you:"You earn a Salary",biz:"Business generates Revenue",desc:"Your salary is the money you earn from working. The business generates Revenue — the money customers pay for food and drinks. Just like you can't spend more than you earn without going into debt, neither can the business."},
+  {icon:"🛒",you:"You buy Groceries",biz:"Business buys Stock (COGS)",desc:"You buy food to eat at home. The business buys ingredients and drinks to sell. If you overspend on groceries, you have less for everything else. Same for the business — if COGS is too high, profit shrinks."},
+  {icon:"🏠",you:"You pay Rent / Mortgage",biz:"Business pays Rent & Rates",desc:"You pay rent or a mortgage every month regardless of how much you earn. The business pays rent too — it's a fixed cost that doesn't change whether sales are good or bad. You still owe it even on a quiet month."},
+  {icon:"⚡",you:"You pay Bills",biz:"Business pays Utilities",desc:"You pay energy and water bills at home. The business pays the same — gas for the kitchen, electricity for lights and fridges, water for everything. If you leave lights on at home, your bill goes up. Same at work."},
+  {icon:"📱",you:"You pay Phone, subscriptions, insurance",biz:"Business pays Overheads",desc:"Netflix, phone contract, car insurance — you pay for things that keep your life running. The business has the same: POS systems, accountancy, licences, insurance, marketing. These are overheads — they add up quietly."},
+  {icon:"👥",you:"You are the labour at home",biz:"Business pays Labour Cost",desc:"At home, you do your own cooking, cleaning, and errands — that's your unpaid labour. The business has to pay people to do the work. Wages, NI, pension, agency staff — it's usually the second biggest cost after food."},
+  {icon:"🏛️",you:"You pay Income Tax & NI",biz:"Business pays Corporation Tax",desc:"You pay tax on your salary — it comes out before you even see it. The business pays corporation tax on its profits. Neither of you can avoid it. The more you earn (or profit), the more tax is owed."},
+  {icon:"🗑️",you:"You waste food you throw away",biz:"Business wastes expired goods & gives away Comps",desc:"That salad you forgot about in the fridge and threw away? That's waste. The business does the same — food that expires, gets overcooked, or is prepped but never sold. On top of that, the business gives away free items (comps) — apology drinks, VIP perks, staff friends. Both are money spent with no return."},
+  {icon:"💔",you:"You pay to replace broken plates or mugs",biz:"Business pays Breakage",desc:"When you break a plate or a glass at home, you pay to replace it. In the business, broken glasses, plates, and damaged equipment all cost money to replace. It's not dramatic individually, but it adds up over time."},
+  {icon:"🚗",you:"You pay for a car or house over many years",biz:"Business pays CAPEX over many years",desc:"When you buy a house or a car, you don't pay it all at once — you spread the cost over years with a mortgage or finance plan. The business does the same with big purchases: a £30,000 kitchen refurb might be spread over 5–7 years, a £10,000 oven over 7–10 years. These are capital expenses (CAPEX) — big upfront investments that the business pays for and uses over a long period."},
+  {icon:"📉",you:"Your car loses value over time",biz:"Business goods depreciate",desc:"Your car was worth £15,000 when you bought it. Three years later it's worth £8,000. That loss in value is depreciation. The business's equipment does the same — the coffee machine, the fridges, the furniture. They all wear out and lose value year by year."},
+  {icon:"💰",you:"What you have left is your Savings",biz:"What the business has left is Net Profit",desc:"After you've paid rent, bills, food, transport, tax, and everything else — what's left in your account is your savings. The business works exactly the same way. Revenue minus all costs equals what's left. That's the Net Profit — the bottom line."},
+];
+
+function RealLifePage({onBack}){
+  return(<Page onBack={onBack} backLabel="Back">
+    <div style={{fontSize:48,marginBottom:6}}>🪞</div>
+    <Ttl text="Life Analogy"/>
+
+    <div style={{background:C.accentDim,border:`1px solid ${C.accent}22`,borderRadius:14,padding:"16px 18px",marginBottom:20}}>
+      <div style={{fontSize:13,color:C.text,lineHeight:1.6,opacity:0.9}}>You already manage a P&L every month — you just don't call it that. You earn money, pay rent, pay bills, buy food, pay tax, and hopefully have something left over. A business works exactly the same way.</div>
+      <div style={{fontSize:12,color:C.accent,lineHeight:1.5,marginTop:10,fontWeight:600}}>Your life = a P&L you already understand.</div>
+    </div>
+
+    {REALLIFE_ITEMS.map((item,i)=>(
+      <div key={i} style={{
+        background:C.surface,border:`1px solid ${C.border}`,borderRadius:14,
+        padding:"16px 16px",marginBottom:8,
+        animation:`fadeUp 0.3s ease ${i*0.04}s both`,
+      }}>
+        <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
+          <span style={{fontSize:22}}>{item.icon}</span>
+          <div style={{flex:1}}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+              <span style={{fontSize:14,fontWeight:600,color:C.text}}>{item.you}</span>
+              <span style={{fontSize:14,fontWeight:600,color:C.accent}}>{item.biz}</span>
+            </div>
+          </div>
+        </div>
+        <div style={{fontSize:12,color:C.sub,lineHeight:1.55}}>{item.desc}</div>
+      </div>
+    ))}
+
+    <div style={{background:C.surface,border:`1px solid ${C.border}`,borderRadius:14,padding:"16px 18px",marginTop:12}}>
+      <div style={{fontSize:13,color:C.text,lineHeight:1.6,opacity:0.85}}>The only difference between your personal finances and a business P&L is scale. The logic is identical. If you can manage your own money, you can learn to manage a business's money.</div>
+      <div style={{fontSize:12,color:C.accent,lineHeight:1.5,marginTop:8,fontWeight:600}}>You already think like a manager. Now learn the language.</div>
+    </div>
   </Page>);
 }
 
@@ -758,6 +812,7 @@ export default function OpsInsight(){
     {pg==="kpi"&&<KPIPage onBack={back} nav={nav} kpis={kpis} setKpis={setKpis}/>}
     {pg==="abbreviations"&&<AbbreviationsPage onBack={back} nav={nav}/>}
     {pg==="leadership"&&<LeadershipPage onBack={back} nav={nav}/>}
+    {pg==="reallife"&&<RealLifePage onBack={back}/>}
     {pg==="feedback"&&<FeedbackPage onBack={back}/>}
     {pg==="howtofix"&&<HowToFixPage onBack={back} nav={nav}/>}
     {pg.startsWith("fix:")&&<FixDetailPage id={pg.replace("fix:","")} onBack={()=>back()}/>}
