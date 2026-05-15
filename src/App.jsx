@@ -87,6 +87,11 @@ const EX={
   // ── How is it calculated? pages ──
   "how-cogs":{title:"How is COGS Calculated?",icon:"🧮",paragraphs:["Formula:","Cost of Goods Sold = Opening Stock + Purchases − Closing Stock","COGS % = (COGS ÷ Net Revenue) × 100","Professional explanation: COGS measures the direct cost of goods consumed during a trading period. It is derived by adding opening inventory to purchases made during the period and subtracting the closing inventory value.","Simple explanation: You started with some stock. You bought more stock during the week or month. You counted what's left at the end. The difference is what you used — that's your COGS.","Important rules:","• Opening Stock is always last period's Closing Stock.","• Purchases must be for the same period only.","• Revenue must also match the same period.","• Always use Net Revenue (Sales excluding VAT) for calculating COGS %.","• Count stock at cost price (what you paid), not selling price."],tip:"If your COGS % suddenly changes by more than 2–3 points, something is wrong. Investigate immediately."},
   "how-gp":{title:"How is GP% Calculated?",icon:"🧮",paragraphs:["Formula:","Gross Profit = Net Revenue − Cost of Sales","GP% = (Gross Profit ÷ Net Revenue) × 100","Professional explanation: Gross Profit represents the residual revenue after deducting the direct cost of goods sold. It is exclusively related to food and beverage costs.","Simple explanation: GP% tells you how much money you keep from every £1 of sales after paying for your ingredients and drinks.","Important — GP% is Food & Beverage ONLY:","• Labour costs do NOT affect GP%.","• Rent does NOT affect GP%.","• Utilities, marketing, repairs — NONE of these affect GP%.","Revenue used: Always use Net Revenue (Sales excluding VAT)."],tip:"GP% is the first number to check every week."},
+  // ── Dish Margins ──
+  "dish-selling-price":{title:"Selling Price (exc VAT)",icon:"💷",paragraphs:["The price the customer pays for this dish, excluding VAT.","If your menu shows £14.00 and VAT is 20%, the selling price excluding VAT is £11.67.","Use the price excluding VAT to calculate your true margin. VAT is not your money — it belongs to HMRC.","If your POS already shows net prices, use those directly."],tip:"Always calculate margins on prices excluding VAT for accuracy."},
+  "dish-food-cost":{title:"Food Cost (Ingredients)",icon:"🥩",paragraphs:["The total cost of every ingredient that goes into this dish.","Include everything: the protein, the sides, the garnish, the sauce, the oil used for cooking. If it goes on the plate, it counts.","Use supplier invoice prices. If prices have changed recently, use the current price — not the old one."],tip:"Cost your dishes quarterly at minimum. Supplier prices change and margins drift without you noticing."},
+  "dish-margin-result":{title:"Dish Margin",icon:"📊",paragraphs:["The margin shows how much money you keep from each dish after paying for ingredients.","Margin £ = Selling Price − Food Cost","Margin % = (Margin ÷ Selling Price) × 100","Green (70%+): Strong margin. This dish is doing well.","Amber (60–69%): Acceptable but worth reviewing. Could be intentional or could be improved.","Red (below 60%): Low margin. Not necessarily wrong — but you need to know it's there and understand why.","Not every dish needs to be green. Some low-margin dishes drive footfall or pair with high-margin drinks. What matters is that you know which dishes are which, so you can balance your menu intentionally."],tip:"A menu full of red dishes loses money. A menu with a smart mix of green, amber, and red — where the green dishes are your bestsellers — makes money."},
+  "how-dish-margins":{title:"How are Dish Margins Calculated?",icon:"🧮",paragraphs:["Formula:","Dish Margin (£) = Selling Price (exc VAT) − Food Cost","Dish Margin (%) = (Margin ÷ Selling Price) × 100","Example: Caesar Salad sells for £12.00 (exc VAT). Ingredients cost £3.20.","Margin = £12.00 − £3.20 = £8.80","Margin % = (£8.80 ÷ £12.00) × 100 = 73.3% → Green","Why this matters: Your overall GP% is the average of all your dish margins weighted by how many you sell. If your bestseller has a 55% margin, it drags your whole GP% down — even if other dishes are at 75%.","The fix is not to remove low-margin dishes — it's to know which ones they are and make sure your menu is balanced."],tip:"Cost your top 10 selling dishes first. Those are the ones that impact your GP% the most."},
   "how-pnl":{title:"How is the P&L Calculated?",icon:"🧮",paragraphs:["The P&L (Profit & Loss) shows you exactly where your money goes:","Step 1 — Gross Revenue: Everything that came through the till, including VAT.","Step 2 — Less VAT: Remove VAT because it's not your money.","Step 3 — Net Revenue: Your true sales income. All percentages calculated from this.","Step 4 — Minus Cost of Sales (Food + Beverage + Other)","Step 5 — = Gross Profit. Target: 65–75%.","Step 6 — Minus Labour","Step 7 — Minus Overheads","Step 8 — = Net Profit. Target: 8–15%.","Always enter Net Revenue (Sales excluding VAT)."],tip:"Read the P&L like a waterfall — money flows in at the top and costs drain it at each level."},
   "how-waste":{title:"How are Losses Calculated?",icon:"🧮",paragraphs:["Formula:","Total Losses = Waste + Breakage + Comps","Loss % = (Total Losses ÷ Net Revenue) × 100","Waste: Food or drink paid for but could not be sold.","Breakage: Physical items damaged during operations.","Comps: Items given away free. Record every comp with a reason.","Revenue used: Net Revenue (Sales excluding VAT).","Target: Combined losses under 5–8%."],tip:"Track waste daily, not weekly."},
   "how-ebita":{title:"How is EBITDA Calculated?",icon:"🧮",paragraphs:["Formula:","EBITDA = Net Revenue − Cost of Sales − Labour − Overheads","If you also enter Depreciation, Interest, and Tax below EBITDA:","Net Profit = EBITDA − Depreciation − Interest − Tax","Professional explanation: EBITDA measures the profitability of the business from its core operations before financing costs, tax, and non-cash charges like depreciation.","Simple explanation: EBITDA shows how much money your business makes from running the operation before the bank, tax, and accounting adjustments are applied.","This page is monthly. Revenue used: Net Revenue (Sales excluding VAT) for the full month."],tip:"Track GP% weekly, but review EBITDA monthly. Investors value businesses at 4–6x EBITDA."},
@@ -269,7 +274,98 @@ function Home({nav}){return(<Page><div style={{textAlign:"center",padding:"36px 
     <NB icon="🏗️" label="CAPEX" desc="Capital investments" onClick={()=>nav("capex")} delay={0.28}/>
     <NB icon="🧠" label="Insights" desc="How you're performing against your targets" onClick={()=>nav("insights")} delay={0.32}/>
     <NB icon="🔧" label="How to Fix" desc="My number is bad — what do I do?" onClick={()=>nav("howtofix")} delay={0.36}/>
-  </div><div style={{marginTop:28}}><div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}><div style={{height:1,flex:1,background:C.border}}/><span style={{fontSize:11,fontWeight:700,color:C.dim,textTransform:"uppercase",letterSpacing:1}}>Tools & Learning</span><div style={{height:1,flex:1,background:C.border}}/></div><NB icon="📖" label="Abbreviations (Ops Language)" desc="Common hospitality terms explained" onClick={()=>nav("abbreviations")} delay={0.40}/><NB icon="🪞" label="Life Analogy" desc="Your life is a P&L — see the analogy" onClick={()=>nav("reallife")} delay={0.42}/><NB icon="🧭" label="Leadership Tips" desc="Practical advice for managers" onClick={()=>nav("leadership")} delay={0.44}/><NB icon="💬" label="Send Feedback" desc="Help us improve OpsInsight" onClick={()=>nav("feedback")} delay={0.48}/></div><div style={{textAlign:"center",marginTop:24,fontSize:11,color:C.dim}}>Built for hospitality teams</div><div style={{textAlign:"center",marginTop:6,fontSize:10,color:C.dim,opacity:0.5}}>OpsInsight v1.0 • We do not sell your data</div></Page>)}
+  </div><div style={{marginTop:28}}><div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}><div style={{height:1,flex:1,background:C.border}}/><span style={{fontSize:11,fontWeight:700,color:C.dim,textTransform:"uppercase",letterSpacing:1}}>Tools & Learning</span><div style={{height:1,flex:1,background:C.border}}/></div><NB icon="🍽️" label="Dish Margins" desc="Cost your dishes, find your margin" onClick={()=>nav("dishmargins")} delay={0.38}/><NB icon="📖" label="Abbreviations (Ops Language)" desc="Common hospitality terms explained" onClick={()=>nav("abbreviations")} delay={0.40}/><NB icon="🪞" label="Life Analogy" desc="Your life is a P&L — see the analogy" onClick={()=>nav("reallife")} delay={0.42}/><NB icon="🧭" label="Leadership Tips" desc="Practical advice for managers" onClick={()=>nav("leadership")} delay={0.44}/><NB icon="💬" label="Send Feedback" desc="Help us improve OpsInsight" onClick={()=>nav("feedback")} delay={0.48}/></div><div style={{textAlign:"center",marginTop:24,fontSize:11,color:C.dim}}>Built for hospitality teams</div><div style={{textAlign:"center",marginTop:6,fontSize:10,color:C.dim,opacity:0.5}}>OpsInsight v1.0 • We do not sell your data</div></Page>)}
+
+/* ═══════════════════════════════════════════════════════════════════
+   DISH MARGINS PAGE
+   ═══════════════════════════════════════════════════════════════════ */
+function DishMarginsPage({onBack,nav}){
+  const[dishes,setDishes]=useStored("opsinsight-dishes",[]);
+  const[name,setName]=useState("");
+  const[price,setPrice]=useState("");
+  const[cost,setCost]=useState("");
+
+  const addDish=()=>{
+    const p=parseFloat(price)||0,c=parseFloat(cost)||0;
+    if(!name.trim()||p<=0)return;
+    const margin=p-c,marginPct=p>0?(margin/p)*100:0;
+    setDishes([...dishes,{id:Date.now(),name:name.trim(),price:p,cost:c,margin,marginPct}]);
+    setName("");setPrice("");setCost("");
+  };
+
+  const removeDish=(id)=>setDishes(dishes.filter(d=>d.id!==id));
+
+  const getColor=(pct)=>pct>=70?C.accent:pct>=60?C.caution:C.warn;
+  const getLabel=(pct)=>pct>=70?"Strong margin":pct>=60?"Review margin":"Low margin";
+
+  const avgMargin=dishes.length>0?dishes.reduce((sum,d)=>sum+d.marginPct,0)/dishes.length:0;
+
+  return(<Page onBack={onBack} backLabel="Back">
+    <div style={{fontSize:48,marginBottom:6}}>🍽️</div>
+    <Ttl text="Dish Margins" sub="Cost your dishes. Find your margin. Fix your menu."/>
+
+    {dishes.length>0&&<div style={{background:`linear-gradient(135deg,${getColor(avgMargin)}08,${getColor(avgMargin)}03)`,border:`1px solid ${getColor(avgMargin)}22`,borderRadius:16,padding:"16px 18px",marginBottom:20}}>
+      <div style={{fontSize:12,color:C.sub,fontWeight:600,textTransform:"uppercase",letterSpacing:0.7,marginBottom:6}}>Average Menu Margin</div>
+      <div style={{display:"flex",alignItems:"baseline",gap:8,justifyContent:"center"}}>
+        <span style={{fontSize:32,fontWeight:700,color:getColor(avgMargin),fontFamily:"'JetBrains Mono',monospace"}}>{avgMargin.toFixed(1)}%</span>
+        <span style={{fontSize:13,color:getColor(avgMargin),opacity:0.7}}>{getLabel(avgMargin)}</span>
+      </div>
+      <div style={{fontSize:11,color:C.dim,textAlign:"center",marginTop:6}}>{dishes.length} dish{dishes.length!==1?"es":""} costed</div>
+    </div>}
+
+    <div style={{background:C.surface,border:`1px solid ${C.border}`,borderRadius:14,padding:"16px",marginBottom:16}}>
+      <div style={{fontSize:12,color:C.sub,fontWeight:600,textTransform:"uppercase",letterSpacing:0.7,marginBottom:10}}>Add a dish</div>
+
+      <div style={{marginBottom:10}}>
+        <div style={{fontSize:11,color:C.dim,marginBottom:4}}>Dish name</div>
+        <input type="text" value={name} onChange={e=>setName(e.target.value)} placeholder="e.g. Caesar Salad" style={{width:"100%",padding:"11px 14px",background:C.bg,border:`1px solid ${C.border}`,borderRadius:10,color:C.text,fontSize:14,fontFamily:"'DM Sans',sans-serif",outline:"none",boxSizing:"border-box"}} onFocus={e=>{e.target.style.borderColor=C.accent}} onBlur={e=>{e.target.style.borderColor=C.border}}/>
+      </div>
+
+      <div style={{display:"flex",gap:8,marginBottom:12}}>
+        <div style={{flex:1}}>
+          <button onClick={()=>nav("explain:dish-selling-price")} style={{display:"flex",alignItems:"center",gap:4,background:"none",border:"none",padding:"0 0 4px",cursor:"pointer"}}><span style={{fontSize:11,color:C.accent,fontWeight:600,textDecoration:"underline",textDecorationColor:C.accent+"44",textUnderlineOffset:2,fontFamily:"'DM Sans',sans-serif"}}>SELLING PRICE (EXC VAT)</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={C.accent} strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>
+          <div style={{position:"relative"}}><span style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",color:C.dim,fontSize:14,fontWeight:600}}>£</span><input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={price} onChange={e=>{const v=e.target.value;if(v===""||/^[0-9]*\.?[0-9]*$/.test(v))setPrice(v)}} placeholder="0" style={{width:"100%",padding:"11px 11px 11px 28px",background:C.bg,border:`1px solid ${C.border}`,borderRadius:10,color:C.text,fontSize:15,fontFamily:"'JetBrains Mono',monospace",outline:"none",boxSizing:"border-box"}} onFocus={e=>{e.target.style.borderColor=C.accent}} onBlur={e=>{e.target.style.borderColor=C.border}}/></div>
+        </div>
+        <div style={{flex:1}}>
+          <button onClick={()=>nav("explain:dish-food-cost")} style={{display:"flex",alignItems:"center",gap:4,background:"none",border:"none",padding:"0 0 4px",cursor:"pointer"}}><span style={{fontSize:11,color:C.accent,fontWeight:600,textDecoration:"underline",textDecorationColor:C.accent+"44",textUnderlineOffset:2,fontFamily:"'DM Sans',sans-serif"}}>FOOD COST</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={C.accent} strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>
+          <div style={{position:"relative"}}><span style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",color:C.dim,fontSize:14,fontWeight:600}}>£</span><input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={cost} onChange={e=>{const v=e.target.value;if(v===""||/^[0-9]*\.?[0-9]*$/.test(v))setCost(v)}} placeholder="0" style={{width:"100%",padding:"11px 11px 11px 28px",background:C.bg,border:`1px solid ${C.border}`,borderRadius:10,color:C.text,fontSize:15,fontFamily:"'JetBrains Mono',monospace",outline:"none",boxSizing:"border-box"}} onFocus={e=>{e.target.style.borderColor=C.accent}} onBlur={e=>{e.target.style.borderColor=C.border}}/></div>
+        </div>
+      </div>
+
+      <button onClick={addDish} disabled={!name.trim()||!(parseFloat(price)>0)} style={{width:"100%",padding:"12px",background:name.trim()&&parseFloat(price)>0?C.accent:C.surface,border:`1px solid ${name.trim()&&parseFloat(price)>0?C.accent:C.border}`,borderRadius:10,color:name.trim()&&parseFloat(price)>0?C.bg:C.dim,fontSize:14,fontWeight:600,cursor:name.trim()&&parseFloat(price)>0?"pointer":"default",fontFamily:"'DM Sans',sans-serif"}}>+ Add Dish</button>
+    </div>
+
+    {dishes.length>0&&<React.Fragment>
+      <div style={{fontSize:12,fontWeight:700,color:C.sub,textTransform:"uppercase",letterSpacing:0.8,marginBottom:10}}>Your Dishes</div>
+      {dishes.map((d,i)=>{const cl=getColor(d.marginPct);return(
+        <div key={d.id} style={{background:C.surface,border:`1px solid ${cl}22`,borderRadius:14,padding:"14px 16px",marginBottom:8,animation:`fadeUp 0.3s ease ${i*0.04}s both`}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+            <span style={{fontSize:15,fontWeight:600,color:C.text}}>{d.name}</span>
+            <button onClick={()=>removeDish(d.id)} style={{background:"none",border:"none",color:C.dim,fontSize:18,cursor:"pointer",padding:"0 4px",lineHeight:1}}>×</button>
+          </div>
+          <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
+            <div><span style={{fontSize:11,color:C.dim}}>Sells at </span><span style={{fontSize:14,fontWeight:600,fontFamily:"'JetBrains Mono',monospace",color:C.text}}>£{d.price.toFixed(2)}</span></div>
+            <div><span style={{fontSize:11,color:C.dim}}>Costs </span><span style={{fontSize:14,fontWeight:600,fontFamily:"'JetBrains Mono',monospace",color:C.text}}>£{d.cost.toFixed(2)}</span></div>
+          </div>
+          <div onClick={()=>nav("explain:dish-margin-result")} style={{display:"flex",alignItems:"center",justifyContent:"space-between",background:`${cl}0A`,border:`1px solid ${cl}18`,borderRadius:10,padding:"10px 14px",cursor:"pointer"}}>
+            <div style={{display:"flex",alignItems:"baseline",gap:6}}>
+              <span style={{fontSize:20,fontWeight:700,fontFamily:"'JetBrains Mono',monospace",color:cl}}>£{d.margin.toFixed(2)}</span>
+              <span style={{fontSize:14,fontWeight:600,fontFamily:"'JetBrains Mono',monospace",color:cl,opacity:0.7}}>{d.marginPct.toFixed(1)}%</span>
+            </div>
+            <span style={{fontSize:11,fontWeight:600,color:cl}}>{getLabel(d.marginPct)}</span>
+          </div>
+        </div>
+      )})}
+    </React.Fragment>}
+
+    <div style={{background:C.infoDim,border:`1px solid ${C.info}22`,borderRadius:14,padding:"14px 16px",marginTop:16}}>
+      <div style={{fontSize:12,color:C.info,lineHeight:1.55}}>Not every dish needs to be green. Some low-margin dishes drive footfall or pair with high-margin drinks. What matters is that you know which dishes are which, so you can balance your menu intentionally.</div>
+    </div>
+
+    <HowCalc onTap={()=>nav("explain:how-dish-margins")}/>
+    <StartAgainBtn onReset={()=>setDishes([])}/>
+  </Page>);
+}
 
 /* ═══════════════════════════════════════════════════════════════════
    ABBREVIATIONS PAGE
@@ -811,6 +907,7 @@ export default function OpsInsight(){
     {pg==="starthere"&&<StartHerePage onBack={back} nav={nav}/>}
     {pg==="kpi"&&<KPIPage onBack={back} nav={nav} kpis={kpis} setKpis={setKpis}/>}
     {pg==="abbreviations"&&<AbbreviationsPage onBack={back} nav={nav}/>}
+    {pg==="dishmargins"&&<DishMarginsPage onBack={back} nav={nav}/>}
     {pg==="leadership"&&<LeadershipPage onBack={back} nav={nav}/>}
     {pg==="reallife"&&<RealLifePage onBack={back}/>}
     {pg==="feedback"&&<FeedbackPage onBack={back}/>}
